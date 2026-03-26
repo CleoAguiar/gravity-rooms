@@ -26,7 +26,7 @@ z_index = 4
 collision_mask = 2
 script = ExtResource("1_fttkb")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1220696759]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1220696759]
 sprite_frames = SubResource("SpriteFrames_wy8tx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028964251]

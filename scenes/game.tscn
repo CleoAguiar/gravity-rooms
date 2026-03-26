@@ -525,17 +525,17 @@ scale = Vector2(0.5, 0.5)
 [node name="Key" parent="Background" unique_id=1738909135 instance=ExtResource("4_iywne")]
 position = Vector2(-92.5, 108.5)
 
+[node name="Label" type="Label" parent="Background" unique_id=1635822520]
+offset_left = -128.0
+offset_top = -19.5
+offset_right = -30.0
+offset_bottom = 13.5
+theme_override_fonts/font = SubResource("SystemFont_iywne")
+text = "Pressione G"
+
 [node name="Player" parent="." unique_id=347957538 instance=ExtResource("1_uwrxv")]
 z_index = 5
 position = Vector2(-424, 184)
 scale = Vector2(2, 2)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1082017942]
-
-[node name="Label" type="Label" parent="." unique_id=1635822520]
-offset_left = -223.0
-offset_top = 13.0
-offset_right = -125.0
-offset_bottom = 46.0
-theme_override_fonts/font = SubResource("SystemFont_iywne")
-text = "Pressione G"

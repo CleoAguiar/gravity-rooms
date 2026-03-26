@@ -13,8 +13,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
-size = Vector2(42.5, 45)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpvv5"]
+size = Vector2(39, 83)
 
 [node name="Door" type="AnimatableBody2D" unique_id=166335324]
 
@@ -26,6 +26,6 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.8759912
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=33887031]
-position = Vector2(0, 29)
-shape = SubResource("RectangleShape2D_uvdjg")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=226804397]
+position = Vector2(0.5, 13.5)
+shape = SubResource("RectangleShape2D_hpvv5")

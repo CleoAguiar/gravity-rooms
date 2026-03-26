@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cvenaj4x8t5tp"]
+
+[ext_resource type="Script" uid="uid://c5x5q5xrxy521" path="res://scripts/key.gd" id="1_fttkb"]
+[ext_resource type="Texture2D" uid="uid://bxoqkytm6u0ea" path="res://assets/sprites/08-Box/Idle.png" id="1_yk2u2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fttkb"]
+atlas = ExtResource("1_yk2u2")
+region = Rect2(0, 0, 22, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wy8tx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fttkb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brs3p"]
+size = Vector2(21, 16)
+
+[node name="Key" type="Area2D" unique_id=1738909135]
+z_index = 4
+collision_mask = 2
+script = ExtResource("1_fttkb")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1220696759]
+sprite_frames = SubResource("SpriteFrames_wy8tx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028964251]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_brs3p")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

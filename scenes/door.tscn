@@ -2,14 +2,29 @@
 
 [ext_resource type="Texture2D" uid="uid://blomniriykp8h" path="res://assets/sprites/11-Door/Idle.png" id="1_hpvv5"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_hpvv5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hpvv5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
 size = Vector2(42.5, 45)
 
 [node name="Door" type="AnimatableBody2D" unique_id=166335324]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1991309958]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1178309889]
+z_index = 4
 scale = Vector2(2, 2)
-texture = ExtResource("1_hpvv5")
+sprite_frames = SubResource("SpriteFrames_hpvv5")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7440126
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=33887031]
 position = Vector2(0, 29)

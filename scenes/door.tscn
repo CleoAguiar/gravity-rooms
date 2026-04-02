@@ -56,7 +56,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83dcw"]
-size = Vector2(44, 54)
+size = Vector2(24, 82)
 
 [sub_resource type="Animation" id="Animation_la1wf"]
 length = 0.001
@@ -106,7 +106,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2053548590]
-visible = false
+position = Vector2(2, 15)
 shape = SubResource("RectangleShape2D_83dcw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=690177858]

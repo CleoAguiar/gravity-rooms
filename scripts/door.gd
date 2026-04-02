@@ -6,4 +6,4 @@ extends StaticBody2D
 func open_door():
 	print("abrindo porta")
 	sprite_2d.play("opening")
-	collision.disabled = true
+	collision.set_deferred("disabled", true)

@@ -68,8 +68,7 @@ Planned features:
 
 ## 🛠️ Built With
 
-* Unity or Godot (TBD)
-* C#
+* Godot
 
 ---
 

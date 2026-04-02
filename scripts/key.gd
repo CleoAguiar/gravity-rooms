@@ -1,5 +1,8 @@
 extends Area2D
 
-func _on_body_entered(body: Node2D) -> void:
+signal collected
+
+func _on_body_entered(_body: Node2D) -> void:
 	print("I keep the key")
+	emit_signal("collected")
 	queue_free()

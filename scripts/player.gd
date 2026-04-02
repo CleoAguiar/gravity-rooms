@@ -9,38 +9,37 @@ const JUMP_VELOCITY = -300.0
 var gravity_direction := 1 # 1 = normal, -1 = invertida
 
 func _physics_process(delta: float) -> void:
-	# Alternar gravidade ao pressionar Shift
-	if Input.is_action_just_pressed("gravity"): # mapeie para Shift depois
+	# Alternar gravidade
+	if Input.is_action_just_pressed("gravity"):
 		gravity_direction *= -1
-	
-	# Atualiza o "chão" do personagem
+		
+		# Atualiza o "chão"
 		up_direction = Vector2.UP * gravity_direction
-
-	# Vira o personagem de cabeça pra baixo
+		
+		# Vira o sprite
 		animated_sprite.flip_v = gravity_direction == -1
 		
-	# Add the gravity.
+		# Impulso que dá o "feeling bom"
+		# 150 → mais suave / 200 → equilíbrio / 250+ → mais arcade / agressivo
+		velocity.y = 200 * gravity_direction
+
 	# Aplicar gravidade
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_direction * delta
 
-	# Handle jump.
 	# Pulo
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY * gravity_direction
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	# Movimento horizontal
 	var direction := Input.get_axis("move_left", "move_right")
 	
-	# Flip the Sprites
 	if direction > 0:
 		animated_sprite.flip_h = false
 	elif direction < 0:
-		animated_sprite.flip_h = true	
+		animated_sprite.flip_h = true
 	
-	# Play animations
+	# Animações
 	if is_on_floor():
 		if direction == 0:
 			animated_sprite.play("idle")
@@ -49,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		animated_sprite.play("jump")
 	
-	
+	# Movimento
 	if direction:
 		velocity.x = direction * SPEED
 	else:

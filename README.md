@@ -27,8 +27,8 @@ Each level is a closed room where the player must **invert gravity** to solve pu
 | Action         | Key          |
 | -------------- | ------------ |
 | Move           | A / D or ← → |
-| Jump           | Space        |
-| Invert Gravity | Shift        |
+| Jump           | W or ↑       |
+| Invert Gravity | Space        |
 | Restart Level  | R            |
 
 ---
@@ -76,6 +76,7 @@ Planned features:
 
 ```
 /assets
+/entities
 /scripts
 /scenes
 /ui

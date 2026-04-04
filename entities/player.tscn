@@ -166,7 +166,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1ej7"]
 radius = 8.062258
 
-[node name="Player" type="CharacterBody2D" unique_id=347957538]
+[node name="Player" type="CharacterBody2D" unique_id=347957538 groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_g2els")
 

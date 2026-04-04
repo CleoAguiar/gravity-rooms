@@ -505,8 +505,6 @@ sources/1 = SubResource("TileSetAtlasSource_lbhrr")
 font_names = PackedStringArray("Comic Sans MS")
 
 [node name="Game" type="Node2D" unique_id=583389761]
-metadata/_edit_vertical_guides_ = [-505.0]
-metadata/_edit_horizontal_guides_ = [379.0]
 
 [node name="Background" type="TileMapLayer" parent="." unique_id=912505328]
 use_parent_material = true
@@ -543,5 +541,6 @@ z_index = 4
 position = Vector2(212, 199)
 
 [node name="Camera" parent="." unique_id=1040924369 instance=ExtResource("6_p57ef")]
+position = Vector2(-520.1001, -1414.699)
 
 [connection signal="collected" from="Background/Key" to="Door" method="open_door"]

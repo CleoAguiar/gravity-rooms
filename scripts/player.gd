@@ -6,6 +6,7 @@ enum PlayerState {
 }
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var instruction: TileMapLayer = $"../TileMaps/Instruction"
 
 # Movimento
 const SPEED = 200.0
@@ -164,6 +165,7 @@ func jump():
 	jump_buffer_timer = 0
 	coyote_timer = 0
 	change_state(PlayerState.AIR)
+	get_parent().on_gravity_used()
 
 # =========================
 # 🔄 GRAVIDADE
@@ -190,6 +192,9 @@ func _physics_process(delta):
 	# Input global
 	if Input.is_action_just_pressed("gravity"):
 		invert_gravity()
+		if instruction:
+			var tween = create_tween()
+			tween.tween_property(instruction, "modulate:a", 0.0, 0.5)
 
 	# Atualiza buffer
 	if jump_buffer_timer > 0:

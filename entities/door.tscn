@@ -55,10 +55,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_83dcw"]
-size = Vector2(24, 82)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ts0s0"]
+size = Vector2(65, 99)
 
-[node name="Door" type="StaticBody2D" unique_id=498831029]
+[node name="Door" type="Area2D" unique_id=727187839]
+collision_layer = 8
+collision_mask = 2
 script = ExtResource("1_uvdjg")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=708807089]
@@ -69,6 +71,9 @@ autoplay = "idle"
 frame = 4
 frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2053548590]
-position = Vector2(2, 15)
-shape = SubResource("RectangleShape2D_83dcw")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=939703725]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_ts0s0")
+debug_color = Color(0, 0.6, 0, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://c16d5iaaeyi6j" path="res://assets/sprites/14-TileSets/Decorations (32x32).png" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dch5r2bfoclli" path="res://entities/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://i2hi6nmp2r7n" path="res://assets/sprites/14-TileSets/Terrain (32x32).png" id="2_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://cvenaj4x8t5tp" path="res://scenes/key.tscn" id="4_iywne"]
-[ext_resource type="PackedScene" uid="uid://dnlialxn31beb" path="res://scenes/door.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://cvenaj4x8t5tp" path="res://entities/key.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://dnlialxn31beb" path="res://entities/door.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="6_p57ef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbhrr"]
@@ -498,6 +498,7 @@ texture = ExtResource("2_yqjtg")
 
 [sub_resource type="TileSet" id="TileSet_lbhrr"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 6
 sources/2 = SubResource("TileSetAtlasSource_lnu2h")
 sources/1 = SubResource("TileSetAtlasSource_lbhrr")
 
@@ -535,6 +536,11 @@ text = "Pressione
 Barra de Espaço"
 metadata/_edit_use_anchors_ = true
 
+[node name="Camera" parent="." unique_id=1040924369 instance=ExtResource("6_p57ef")]
+position = Vector2(-520.1001, -1414.699)
+limit_top = -310
+limit_bottom = 310
+
 [node name="Player" parent="." unique_id=347957538 instance=ExtResource("1_uwrxv")]
 z_index = 5
 position = Vector2(-424, 184)
@@ -543,9 +549,5 @@ scale = Vector2(2, 2)
 [node name="Door" parent="." unique_id=498831029 instance=ExtResource("4_lbhrr")]
 z_index = 4
 position = Vector2(212, 199)
-
-[node name="Camera" parent="." unique_id=1040924369 instance=ExtResource("6_p57ef")]
-position = Vector2(-520.1001, -1414.699)
-limit_bottom = 310
 
 [connection signal="collected" from="TileMaps/Key" to="Door" method="open_door"]

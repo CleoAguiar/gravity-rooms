@@ -527,13 +527,11 @@ position = Vector2(-171, -212)
 scale = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="TileMaps" unique_id=1635822520]
-offset_left = -303.0
-offset_top = -44.0
-offset_right = -182.0
-offset_bottom = 5.0
+offset_left = 153.0
+offset_top = 65.0
+offset_right = 274.0
+offset_bottom = 114.0
 theme_override_fonts/font = SubResource("SystemFont_iywne")
-text = "Pressione 
-Barra de Espaço"
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera" parent="." unique_id=1040924369 instance=ExtResource("6_p57ef")]
@@ -546,8 +544,9 @@ z_index = 5
 position = Vector2(-424, 184)
 scale = Vector2(2, 2)
 
-[node name="Door" parent="." unique_id=498831029 instance=ExtResource("4_lbhrr")]
+[node name="Door" parent="." unique_id=498831029 node_paths=PackedStringArray("label") instance=ExtResource("4_lbhrr")]
 z_index = 4
 position = Vector2(212, 199)
+label = NodePath("../TileMaps/Label")
 
 [connection signal="collected" from="TileMaps/Key" to="Door" method="open_door"]

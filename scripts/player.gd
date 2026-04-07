@@ -31,6 +31,9 @@ var state: PlayerState = PlayerState.GROUND
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 
+# Jumps
+var max_jumps := 2
+var jumps_left := 2
 
 func _ready():
 	change_state(PlayerState.GROUND)
@@ -65,6 +68,7 @@ func change_state(new_state: PlayerState):
 
 func enter_ground():
 	animated_sprite.play("idle")
+	jumps_left = max_jumps
 
 func ground_state(delta):
 	move_horizontal(delta)
@@ -109,6 +113,15 @@ func air_state(delta):
 		animated_sprite.play("fall")
 
 	if Input.is_action_just_pressed("jump"):
+		# Pulo normal (com coyote)
+		if coyote_timer > 0:
+			jump()
+			return
+	
+		# Pulo duplo
+		elif jumps_left > 0:
+			jump()
+	
 		jump_buffer_timer = JUMP_BUFFER_TIME
 
 	if jump_buffer_timer > 0 and coyote_timer > 0:
@@ -154,8 +167,16 @@ func move_horizontal(delta):
 
 func jump():
 	velocity.y = JUMP_FORCE * gravity_direction
+	
+	# Pulo duplo mais forte
+	if jumps_left == 1:
+		velocity.y *= 1.1
+	
 	jump_buffer_timer = 0
 	coyote_timer = 0
+	
+	jumps_left -= 1
+	
 	change_state(PlayerState.AIR)
 
 

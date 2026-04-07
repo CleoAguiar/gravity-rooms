@@ -6,7 +6,7 @@ enum PlayerState {
 }
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var instruction: TileMapLayer = $"../TileMaps/Instruction"
+@onready var tutorial_manager = get_parent().get_node_or_null("TutorialManager")
 
 # Movimento
 const SPEED = 200.0
@@ -31,8 +31,10 @@ var state: PlayerState = PlayerState.GROUND
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 
+
 func _ready():
 	change_state(PlayerState.GROUND)
+
 
 # =========================
 # 🔁 STATE MACHINE
@@ -42,7 +44,6 @@ func change_state(new_state: PlayerState):
 	if state == new_state:
 		return
 
-	# EXIT
 	match state:
 		PlayerState.GROUND:
 			exit_ground()
@@ -51,12 +52,12 @@ func change_state(new_state: PlayerState):
 
 	state = new_state
 
-	# ENTER
 	match state:
 		PlayerState.GROUND:
 			enter_ground()
 		PlayerState.AIR:
 			enter_air()
+
 
 # =========================
 # 🌍 GROUND STATE
@@ -68,31 +69,27 @@ func enter_ground():
 func ground_state(delta):
 	move_horizontal(delta)
 
-	# Atualiza animação
 	if abs(velocity.x) > 5:
 		animated_sprite.play("run")
 	else:
 		animated_sprite.play("idle")
 
-	# Reset coyote
 	coyote_timer = COYOTE_TIME
 
-	# Jump buffer
 	if jump_buffer_timer > 0:
 		jump()
 		return
 
-	# Input de pulo
 	if Input.is_action_just_pressed("jump"):
 		jump()
 		return
 
-	# Caiu do chão
 	if not is_on_floor():
 		change_state(PlayerState.AIR)
 
 func exit_ground():
 	pass
+
 
 # =========================
 # 🌌 AIR STATE
@@ -104,31 +101,26 @@ func enter_air():
 func air_state(delta):
 	move_horizontal(delta)
 
-	# Gravidade
 	velocity.y += GRAVITY_FORCE * gravity_direction * delta
 
-	# Atualiza coyote
 	coyote_timer -= delta
 
-	# Detecta subida/queda
 	if velocity.y * gravity_direction > 0:
 		animated_sprite.play("fall")
 
-	# Jump buffer
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_timer = JUMP_BUFFER_TIME
 
-	# Executa pulo se ainda estiver no coyote
 	if jump_buffer_timer > 0 and coyote_timer > 0:
 		jump()
 		return
 
-	# Aterrissagem
 	if is_on_floor():
 		change_state(PlayerState.GROUND)
 
 func exit_air():
 	pass
+
 
 # =========================
 # 🎮 MOVIMENTO
@@ -150,11 +142,11 @@ func move_horizontal(delta):
 			FRICTION * delta
 		)
 
-	# Flip sprite
 	if direction > 0:
 		animated_sprite.flip_h = false
 	elif direction < 0:
 		animated_sprite.flip_h = true
+
 
 # =========================
 # 🦘 PULO
@@ -166,6 +158,7 @@ func jump():
 	coyote_timer = 0
 	change_state(PlayerState.AIR)
 
+
 # =========================
 # 🔄 GRAVIDADE
 # =========================
@@ -176,14 +169,14 @@ func invert_gravity():
 	up_direction = Vector2.UP * gravity_direction
 	animated_sprite.flip_v = gravity_direction == -1
 
-	# Impulso pra dar feeling
 	velocity.y = 200 * gravity_direction
 
-	# Pequena tolerância pós-inversão
 	coyote_timer = COYOTE_TIME
-	
-	# UI TutorialManager
-	get_parent().on_gravity_used()
+
+	# 🔥 Comunicação com o sistema de tutorial
+	if tutorial_manager:
+		tutorial_manager.on_gravity_used()
+
 
 # =========================
 # 🔁 LOOP PRINCIPAL
@@ -191,18 +184,12 @@ func invert_gravity():
 
 func _physics_process(delta):
 
-	# Input global
 	if Input.is_action_just_pressed("gravity"):
 		invert_gravity()
-		if instruction:
-			var tween = create_tween()
-			tween.tween_property(instruction, "modulate:a", 0.0, 0.5)
 
-	# Atualiza buffer
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
 
-	# Máquina de estados
 	match state:
 		PlayerState.GROUND:
 			ground_state(delta)

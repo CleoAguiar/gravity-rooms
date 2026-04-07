@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d0p2lxhvcxu62" path="res://scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://c16d5iaaeyi6j" path="res://assets/sprites/14-TileSets/Decorations (32x32).png" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dch5r2bfoclli" path="res://entities/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://ciofrv14j3st6" path="res://scripts/tutorial_manager.gd" id="2_vtaks"]
 [ext_resource type="Texture2D" uid="uid://i2hi6nmp2r7n" path="res://assets/sprites/14-TileSets/Terrain (32x32).png" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://df33ayloyyy8g" path="res://assets/sprites/Keyboard Extras.png" id="3_gee14"]
 [ext_resource type="Texture2D" uid="uid://bie63vwom76j2" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="4_0tnpc"]
@@ -587,6 +588,10 @@ font_names = PackedStringArray("Comic Sans MS")
 
 [node name="Game" type="Node2D" unique_id=583389761]
 script = ExtResource("1_0tnpc")
+
+[node name="TutorialManager" type="Node" parent="." unique_id=1993876614]
+script = ExtResource("2_vtaks")
+instruction_path = NodePath("../TileMaps/Instruction")
 
 [node name="TileMaps" type="Node" parent="." unique_id=2037742555]
 

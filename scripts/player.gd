@@ -7,6 +7,7 @@ enum PlayerState {
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var tutorial_manager = get_parent().get_node_or_null("TutorialManager")
+@onready var jump_particles: GPUParticles2D = $JumpEffect
 
 # Movimento
 const SPEED = 200.0
@@ -136,6 +137,26 @@ func exit_air():
 
 
 # =========================
+# 🎇 EFEITO PARTICULA
+# =========================
+func play_jump_effect(is_double_jump: bool):
+	# Partícula
+	if jump_particles:
+		jump_particles.restart()
+	
+	# Squash & Stretch
+	var tween = create_tween()
+	
+	if is_double_jump:
+		# Mais exagerado no pulo duplo
+		tween.tween_property(animated_sprite, "scale", Vector2(0.7, 1.3), 0.08)
+	else:
+		tween.tween_property(animated_sprite, "scale", Vector2(0.85, 1.15), 0.08)
+	
+	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.1)
+
+
+# =========================
 # 🎮 MOVIMENTO
 # =========================
 
@@ -166,9 +187,10 @@ func move_horizontal(delta):
 # =========================
 
 func jump():
+	var is_double_jump := jumps_left < max_jumps
 	velocity.y = JUMP_FORCE * gravity_direction
 	
-	# Pulo duplo mais forte
+	# Boost pulo duplo mais forte
 	if jumps_left == 1:
 		velocity.y *= 1.1
 	
@@ -176,6 +198,14 @@ func jump():
 	coyote_timer = 0
 	
 	jumps_left -= 1
+	
+	# Ajusta gravidade da partícula corretamente
+	var mat = jump_particles.process_material as ParticleProcessMaterial
+	if mat:
+		mat.gravity = Vector3(0, 300 * gravity_direction, 0)
+	
+	# Efeito visual
+	play_jump_effect(is_double_jump)
 	
 	change_state(PlayerState.AIR)
 

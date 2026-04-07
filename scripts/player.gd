@@ -134,7 +134,10 @@ func activate_gravity():
 	hit_stop()
 	if camera:
 		camera.shake(8.0)
-
+	
+	# TUTORIAL
+	if tutorial_manager:
+		tutorial_manager.on_gravity_used()
 
 func deactivate_gravity():
 	gravity_active = false

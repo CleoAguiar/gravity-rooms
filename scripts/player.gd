@@ -8,6 +8,7 @@ enum PlayerState {
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var tutorial_manager = get_parent().get_node_or_null("TutorialManager")
 @onready var jump_particles: GPUParticles2D = $JumpEffect
+@onready var camera = get_viewport().get_camera_2d()
 
 # Movimento
 const SPEED = 200.0
@@ -18,41 +19,45 @@ const FRICTION = 800.0
 const JUMP_FORCE = -300.0
 const GRAVITY_FORCE = 900.0
 
-# Feel (polimento)
+# Feel
 const COYOTE_TIME = 0.1
-const JUMP_BUFFER_TIME = 0.1
 
 # Gravidade
-var gravity_direction := 1 # 1 normal, -1 invertida
+var gravity_direction := 1
+var gravity_active := false
+
+# Energia
+var max_gravity_energy := 3.0
+var gravity_energy := 3.0
+
+var drain_rate := 1.5
+var recharge_rate := 2.0
+var air_recharge_rate := 0.3
 
 # Estado
 var state: PlayerState = PlayerState.GROUND
 
 # Timers
 var coyote_timer := 0.0
-var jump_buffer_timer := 0.0
 
 # Jumps
 var max_jumps := 2
 var jumps_left := 2
+
+# DEBUG
+var debug_timer := 0.0
 
 func _ready():
 	change_state(PlayerState.GROUND)
 
 
 # =========================
-# 🔁 STATE MACHINE
+# STATE MACHINE
 # =========================
 
 func change_state(new_state: PlayerState):
 	if state == new_state:
 		return
-
-	match state:
-		PlayerState.GROUND:
-			exit_ground()
-		PlayerState.AIR:
-			exit_air()
 
 	state = new_state
 
@@ -64,12 +69,13 @@ func change_state(new_state: PlayerState):
 
 
 # =========================
-# 🌍 GROUND STATE
+# GROUND
 # =========================
 
 func enter_ground():
 	animated_sprite.play("idle")
 	jumps_left = max_jumps
+	coyote_timer = COYOTE_TIME
 
 func ground_state(delta):
 	move_horizontal(delta)
@@ -79,12 +85,6 @@ func ground_state(delta):
 	else:
 		animated_sprite.play("idle")
 
-	coyote_timer = COYOTE_TIME
-
-	if jump_buffer_timer > 0:
-		jump()
-		return
-
 	if Input.is_action_just_pressed("jump"):
 		jump()
 		return
@@ -92,12 +92,9 @@ func ground_state(delta):
 	if not is_on_floor():
 		change_state(PlayerState.AIR)
 
-func exit_ground():
-	pass
-
 
 # =========================
-# 🌌 AIR STATE
+# AIR
 # =========================
 
 func enter_air():
@@ -107,74 +104,69 @@ func air_state(delta):
 	move_horizontal(delta)
 
 	velocity.y += GRAVITY_FORCE * gravity_direction * delta
-
 	coyote_timer -= delta
 
 	if velocity.y * gravity_direction > 0:
 		animated_sprite.play("fall")
 
 	if Input.is_action_just_pressed("jump"):
-		# Pulo normal (com coyote)
-		if coyote_timer > 0:
+		if coyote_timer > 0 or jumps_left > 0:
 			jump()
-			return
-	
-		# Pulo duplo
-		elif jumps_left > 0:
-			jump()
-	
-		jump_buffer_timer = JUMP_BUFFER_TIME
-
-	if jump_buffer_timer > 0 and coyote_timer > 0:
-		jump()
-		return
 
 	if is_on_floor():
 		change_state(PlayerState.GROUND)
 
-func exit_air():
-	pass
-
 
 # =========================
-# 🎇 EFEITO PARTICULA
+# GRAVIDADE
 # =========================
-func play_jump_effect(is_double_jump: bool):
-	# Partícula
-	if jump_particles:
-		jump_particles.restart()
-	
-	# Squash & Stretch
-	var tween = create_tween()
-	
-	if is_double_jump:
-		# Mais exagerado no pulo duplo
-		tween.tween_property(animated_sprite, "scale", Vector2(0.7, 1.3), 0.08)
+
+func activate_gravity():
+	gravity_active = true
+	gravity_direction = -1
+
+	up_direction = Vector2.UP * gravity_direction
+	animated_sprite.flip_v = true
+
+	velocity.y = 200 * gravity_direction
+
+	play_gravity_impact()
+	hit_stop()
+	if camera:
+		camera.shake(8.0)
+
+
+func deactivate_gravity():
+	gravity_active = false
+	gravity_direction = 1
+
+	up_direction = Vector2.UP
+	animated_sprite.flip_v = false
+
+	play_gravity_impact()
+	hit_stop()
+	if camera:
+		camera.shake(8.0)
+
+func toggle_gravity():
+	if gravity_active:
+		deactivate_gravity()
 	else:
-		tween.tween_property(animated_sprite, "scale", Vector2(0.85, 1.15), 0.08)
-	
-	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.1)
+		if gravity_energy > 0:
+			activate_gravity()
 
 
 # =========================
-# 🎮 MOVIMENTO
+# MOVIMENTO
 # =========================
 
 func move_horizontal(delta):
 	var direction := Input.get_axis("move_left", "move_right")
 
 	if direction != 0:
-		velocity.x = move_toward(
-			velocity.x,
-			direction * SPEED,
-			ACCELERATION * delta
-		)
+		velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
 	else:
-		velocity.x = move_toward(
-			velocity.x,
-			0,
-			FRICTION * delta
-		)
+		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 
 	if direction > 0:
 		animated_sprite.flip_h = false
@@ -183,63 +175,93 @@ func move_horizontal(delta):
 
 
 # =========================
-# 🦘 PULO
+# PULO
 # =========================
 
 func jump():
 	var is_double_jump := jumps_left < max_jumps
+
 	velocity.y = JUMP_FORCE * gravity_direction
-	
-	# Boost pulo duplo mais forte
+
 	if jumps_left == 1:
 		velocity.y *= 1.1
-	
-	jump_buffer_timer = 0
-	coyote_timer = 0
-	
+
 	jumps_left -= 1
-	
-	# Ajusta gravidade da partícula corretamente
+	coyote_timer = 0
+
+	# Partícula segura
 	var mat = jump_particles.process_material as ParticleProcessMaterial
 	if mat:
 		mat.gravity = Vector3(0, 300 * gravity_direction, 0)
-	
-	# Efeito visual
+
 	play_jump_effect(is_double_jump)
-	
+
 	change_state(PlayerState.AIR)
 
+# =========================
+# IMPACTO VISUAL
+# =========================
+
+func play_gravity_impact():
+	var tween = create_tween()
+	tween.tween_property(animated_sprite, "scale", Vector2(1.3, 0.7), 0.08)
+	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.12)
 
 # =========================
-# 🔄 GRAVIDADE
+# HIT STOP
 # =========================
 
-func invert_gravity():
-	gravity_direction *= -1
+func hit_stop(duration := 0.05):
+	Engine.time_scale = 0.05
+	await get_tree().create_timer(duration).timeout
+	Engine.time_scale = 1.0
 
-	up_direction = Vector2.UP * gravity_direction
-	animated_sprite.flip_v = gravity_direction == -1
+# =========================
+# EFEITOS
+# =========================
 
-	velocity.y = 200 * gravity_direction
+func play_jump_effect(is_double_jump: bool):
+	if jump_particles:
+		jump_particles.restart()
 
-	coyote_timer = COYOTE_TIME
+	var tween = create_tween()
 
-	# 🔥 Comunicação com o sistema de tutorial
-	if tutorial_manager:
-		tutorial_manager.on_gravity_used()
+	if is_double_jump:
+		tween.tween_property(animated_sprite, "scale", Vector2(0.7, 1.3), 0.08)
+	else:
+		tween.tween_property(animated_sprite, "scale", Vector2(0.85, 1.15), 0.08)
+
+	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.1)
 
 
 # =========================
-# 🔁 LOOP PRINCIPAL
+# LOOP
 # =========================
 
 func _physics_process(delta):
 
 	if Input.is_action_just_pressed("gravity"):
-		invert_gravity()
+		toggle_gravity()
 
-	if jump_buffer_timer > 0:
-		jump_buffer_timer -= delta
+	# Energia
+	if gravity_active:
+		gravity_energy -= drain_rate * delta
+		
+		debug_timer += delta
+		if debug_timer >= 0.5:
+			print("Energia:", gravity_energy)
+			debug_timer = 0.0
+	
+		if gravity_energy <= 0:
+			gravity_energy = 0
+			deactivate_gravity()
+	else:
+		if is_on_floor():
+			gravity_energy += recharge_rate * delta
+		else:
+			gravity_energy += air_recharge_rate * delta
+
+		gravity_energy = clamp(gravity_energy, 0, max_gravity_energy)
 
 	match state:
 		PlayerState.GROUND:

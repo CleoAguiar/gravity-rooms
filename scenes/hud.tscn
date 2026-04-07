@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://co7mqx4m5yfd2"]
+
+[ext_resource type="Script" uid="uid://tw7338we75rd" path="res://scripts/control.gd" id="1_ahhtf"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1259982498]
+
+[node name="Control" type="Control" parent="." unique_id=248253163]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ahhtf")
+
+[node name="EnergyBG" type="ColorRect" parent="Control" unique_id=406153075]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 220.0
+offset_bottom = 60.0
+color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
+[node name="EnergyBar" type="ColorRect" parent="Control/EnergyBG" unique_id=1138985030]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.3647059, 0.6627451, 1, 1)

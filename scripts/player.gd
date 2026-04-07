@@ -32,7 +32,7 @@ var gravity_energy := 3.0
 
 var drain_rate := 1.5
 var recharge_rate := 2.0
-var air_recharge_rate := 0.3
+var air_recharge_rate := 0.0 # Taxa de carregamento no AR 0.3
 
 # Estado
 var state: PlayerState = PlayerState.GROUND
@@ -43,9 +43,6 @@ var coyote_timer := 0.0
 # Jumps
 var max_jumps := 2
 var jumps_left := 2
-
-# DEBUG
-var debug_timer := 0.0
 
 func _ready():
 	change_state(PlayerState.GROUND)
@@ -249,11 +246,6 @@ func _physics_process(delta):
 	# Energia
 	if gravity_active:
 		gravity_energy -= drain_rate * delta
-		
-		debug_timer += delta
-		if debug_timer >= 0.5:
-			print("Energia:", gravity_energy)
-			debug_timer = 0.0
 	
 		if gravity_energy <= 0:
 			gravity_energy = 0

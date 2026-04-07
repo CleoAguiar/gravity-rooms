@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dnlialxn31beb" path="res://entities/door.tscn" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bam8s42mffcl4" path="res://assets/sprites/Box.png" id="5_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="12_dinhu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbhrr"]
 texture = ExtResource("1_lnu2h")
@@ -645,5 +646,7 @@ scale = Vector2(2, 2)
 z_index = 4
 position = Vector2(212, 199)
 label = NodePath("../TileMaps/Label")
+
+[node name="HUD" parent="." unique_id=1259982498 instance=ExtResource("12_dinhu")]
 
 [connection signal="collected" from="TileMaps/Key" to="Door" method="open_door"]

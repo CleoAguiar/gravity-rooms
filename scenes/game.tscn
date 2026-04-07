@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bie63vwom76j2" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="4_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://cvenaj4x8t5tp" path="res://entities/key.tscn" id="4_iywne"]
 [ext_resource type="PackedScene" uid="uid://dnlialxn31beb" path="res://entities/door.tscn" id="4_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://bam8s42mffcl4" path="res://assets/sprites/Box.png" id="5_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="6_p57ef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbhrr"]
@@ -457,11 +458,17 @@ texture = ExtResource("2_yqjtg")
 34:23/0 = 0
 35:23/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dinhu"]
+texture = ExtResource("5_kvpfn")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSet" id="TileSet_lbhrr"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 6
 sources/2 = SubResource("TileSetAtlasSource_lnu2h")
 sources/1 = SubResource("TileSetAtlasSource_lbhrr")
+sources/3 = SubResource("TileSetAtlasSource_dinhu")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gee14"]
 texture = ExtResource("3_gee14")
@@ -605,7 +612,7 @@ tile_set = SubResource("TileSet_lbhrr")
 z_index = 1
 use_parent_material = true
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AADy//z/AQACAAIAAAD///z/AQACAAIAAAAMAPz/AQACAAIAAADy////AQACAAYAAAAMAP//AQACAAYAAAD/////AQACAAgAAAABAAQAAQAEAAYAAAALAAQAAQAIAAYAAAD0/wEAAQAEAAQAAAD//wEAAQAEAAQAAAAHAP7/AQAEAAQAAAAHAPr/AQAEAAQAAAA=")
+tile_map_data = PackedByteArray("AAAMAP//AQAEAAQAAAABAAQAAQAEAAYAAAALAAQAAQAIAAYAAAD3/wIAAQAEAAQAAAADAPr/AwAAAAAAAAADAPn/AwAAAAAAAAADAPj/AwAAAAAAAAAEAPr/AwAAAAAAAAAEAPn/AwAAAAAAAAAFAPr/AwAAAAAAAAAEAP//AQAEAAQAAAAEAPv/AQAEAAQAAAANAPv/AQACAAIAAAANAP3/AQACAAYAAAD+//v/AQACAAIAAADy//v/AQACAAIAAAD+//7/AQACAAgAAADy//3/AQACAAYAAAA=")
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="Instruction" type="TileMapLayer" parent="TileMaps" unique_id=421669005]
@@ -613,7 +620,7 @@ tile_map_data = PackedByteArray("AADs/wwAAQACAAAAAADt/wwAAQAAAAAAAADt/w0AAAAEAAI
 tile_set = SubResource("TileSet_vtaks")
 
 [node name="Key" parent="TileMaps" unique_id=1738909135 instance=ExtResource("4_iywne")]
-position = Vector2(331, -115)
+position = Vector2(185, -217)
 scale = Vector2(2, 2)
 
 [node name="Label" type="Label" parent="TileMaps" unique_id=1635822520]

@@ -617,7 +617,9 @@ tile_map_data = PackedByteArray("AAAMAP//AQAEAAQAAAABAAQAAQAEAAYAAAALAAQAAQAIAAY
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="Instruction" type="TileMapLayer" parent="TileMaps" unique_id=421669005]
-tile_map_data = PackedByteArray("AADs/wwAAQACAAAAAADt/wwAAQAAAAAAAADt/w0AAAAEAAIAAADu/wwAAQADAAAAAAA=")
+position = Vector2(-3, 4)
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAD4/wQAAQACAAAAAAD5/wQAAQAAAAAAAAD5/wUAAAAEAAIAAAD6/wQAAQADAAAAAAA=")
 tile_set = SubResource("TileSet_vtaks")
 
 [node name="Key" parent="TileMaps" unique_id=1738909135 instance=ExtResource("4_iywne")]
@@ -631,6 +633,8 @@ offset_right = 274.0
 offset_bottom = 142.0
 theme_override_fonts/font = SubResource("SystemFont_iywne")
 metadata/_edit_use_anchors_ = true
+
+[node name="HUD" parent="." unique_id=1259982498 instance=ExtResource("12_dinhu")]
 
 [node name="Camera" parent="." unique_id=1040924369 instance=ExtResource("6_p57ef")]
 position = Vector2(-520.1001, -1414.699)
@@ -646,7 +650,5 @@ scale = Vector2(2, 2)
 z_index = 4
 position = Vector2(212, 199)
 label = NodePath("../TileMaps/Label")
-
-[node name="HUD" parent="." unique_id=1259982498 instance=ExtResource("12_dinhu")]
 
 [connection signal="collected" from="TileMaps/Key" to="Door" method="open_door"]

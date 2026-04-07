@@ -165,7 +165,6 @@ func jump():
 	jump_buffer_timer = 0
 	coyote_timer = 0
 	change_state(PlayerState.AIR)
-	get_parent().on_gravity_used()
 
 # =========================
 # 🔄 GRAVIDADE
@@ -182,6 +181,9 @@ func invert_gravity():
 
 	# Pequena tolerância pós-inversão
 	coyote_timer = COYOTE_TIME
+	
+	# UI TutorialManager
+	get_parent().on_gravity_used()
 
 # =========================
 # 🔁 LOOP PRINCIPAL

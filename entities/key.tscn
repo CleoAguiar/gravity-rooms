@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5x5q5xrxy521" path="res://scripts/key.gd" id="1_fttkb"]
 [ext_resource type="Texture2D" uid="uid://bajnswqthacfw" path="res://assets/sprites/Key/Key.png" id="2_2nk70"]
+[ext_resource type="AudioStream" uid="uid://l8v28lbksnja" path="res://audio/chocolatepickup.mp3" id="3_xagmd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xagmd"]
 atlas = ExtResource("2_2nk70")
@@ -34,5 +35,8 @@ sprite_frames = SubResource("SpriteFrames_wy8tx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028964251]
 position = Vector2(2, 1.5)
 shape = SubResource("RectangleShape2D_brs3p")
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="." unique_id=1217131650]
+stream = ExtResource("3_xagmd")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

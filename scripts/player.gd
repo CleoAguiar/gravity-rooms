@@ -11,6 +11,7 @@ enum PlayerState {
 @onready var camera = get_viewport().get_camera_2d()
 @onready var gravity_sound: AudioStreamPlayer2D = $GravitySound
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
+@onready var land_sound: AudioStreamPlayer2D = $LandSound
 
 # Movimento
 const SPEED = 200.0
@@ -31,10 +32,9 @@ var gravity_active := false
 # Energia
 var max_gravity_energy := 3.0
 var gravity_energy := 3.0
-
-var drain_rate := 2.0 #1.5
-var recharge_rate := 2.5 #2.0
-var air_recharge_rate := 0.0 # Taxa de carregamento no AR 0.3
+var drain_rate := 2.0
+var recharge_rate := 2.5
+var air_recharge_rate := 0.0
 
 # Estado
 var state: PlayerState = PlayerState.GROUND
@@ -46,9 +46,13 @@ var coyote_timer := 0.0
 var max_jumps := 2
 var jumps_left := 2
 
+# Chão / impacto
+var was_on_floor := false
+var fall_speed := 0.0
+var did_double_jump := false
+
 func _ready():
 	change_state(PlayerState.GROUND)
-
 
 # =========================
 # STATE MACHINE
@@ -65,7 +69,6 @@ func change_state(new_state: PlayerState):
 			enter_ground()
 		PlayerState.AIR:
 			enter_air()
-
 
 # =========================
 # GROUND
@@ -91,7 +94,6 @@ func ground_state(delta):
 	if not is_on_floor():
 		change_state(PlayerState.AIR)
 
-
 # =========================
 # AIR
 # =========================
@@ -115,7 +117,6 @@ func air_state(delta):
 	if is_on_floor():
 		change_state(PlayerState.GROUND)
 
-
 # =========================
 # GRAVIDADE
 # =========================
@@ -131,13 +132,13 @@ func activate_gravity():
 
 	play_gravity_impact()
 	hit_stop()
+
 	if camera:
 		camera.shake(8.0)
-	
-	# TUTORIAL
+
 	if tutorial_manager:
 		tutorial_manager.on_gravity_used()
-	
+
 	if !gravity_sound.playing:
 		gravity_sound.pitch_scale = randf_range(0.9, 1.1)
 		gravity_sound.play()
@@ -151,6 +152,7 @@ func deactivate_gravity():
 
 	play_gravity_impact()
 	hit_stop()
+
 	if camera:
 		camera.shake(8.0)
 
@@ -164,7 +166,6 @@ func toggle_gravity():
 			if !error_sound.playing:
 				error_sound.pitch_scale = randf_range(0.95, 1.05)
 				error_sound.play()
-
 
 # =========================
 # MOVIMENTO
@@ -183,39 +184,70 @@ func move_horizontal(delta):
 	elif direction < 0:
 		animated_sprite.flip_h = true
 
-
 # =========================
 # PULO
 # =========================
 
 func jump():
+	var mat = jump_particles.process_material as ParticleProcessMaterial
 	var is_double_jump := jumps_left < max_jumps
-
+	
 	velocity.y = JUMP_FORCE * gravity_direction
-
+	
+	if mat:
+		mat.gravity = Vector3(0, 300 * gravity_direction, 0)
+	
 	if jumps_left == 1:
 		velocity.y *= 1.1
 
 	jumps_left -= 1
 	coyote_timer = 0
+	
+	if is_double_jump:
+		did_double_jump = true
 
-	# Partícula segura
-	var mat = jump_particles.process_material as ParticleProcessMaterial
-	if mat:
-		mat.gravity = Vector3(0, 300 * gravity_direction, 0)
-
+	velocity.y = JUMP_FORCE * gravity_direction
+		
 	play_jump_effect(is_double_jump)
-
 	change_state(PlayerState.AIR)
 
 # =========================
-# IMPACTO VISUAL
+# IMPACTOS
 # =========================
 
 func play_gravity_impact():
 	var tween = create_tween()
 	tween.tween_property(animated_sprite, "scale", Vector2(1.3, 0.7), 0.08)
 	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.12)
+
+func play_land_feedback():
+	var should_play := false
+
+	# Caso 1: queda forte
+	if fall_speed > 60:
+		should_play = true
+	
+	# Caso 2: pulo duplo (mesmo que baixo)
+	elif did_double_jump and fall_speed > 15:
+		should_play = true
+
+	if should_play:
+		var strength = clamp(fall_speed / 100.0, 0.5, 1.2)
+
+		land_sound.pitch_scale = randf_range(0.9, 1.1)
+		land_sound.volume_db = lerp(-14.0, -6.0, strength)
+		land_sound.play()
+
+		var scale_y = lerp(0.9, 0.7, strength)
+		var scale_x = lerp(1.1, 1.3, strength)
+
+		var tween = create_tween()
+		tween.tween_property(animated_sprite, "scale", Vector2(scale_x, scale_y), 0.05)
+		tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.1)
+
+	# reset sempre
+	fall_speed = 0.0
+	did_double_jump = false
 
 # =========================
 # HIT STOP
@@ -243,7 +275,6 @@ func play_jump_effect(is_double_jump: bool):
 
 	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.1)
 
-
 # =========================
 # LOOP
 # =========================
@@ -256,7 +287,7 @@ func _physics_process(delta):
 	# Energia
 	if gravity_active:
 		gravity_energy -= drain_rate * delta
-	
+
 		if gravity_energy <= 0:
 			gravity_energy = 0
 			deactivate_gravity()
@@ -266,7 +297,11 @@ func _physics_process(delta):
 		else:
 			gravity_energy += air_recharge_rate * delta
 
-		gravity_energy = clamp(gravity_energy, 0, max_gravity_energy)
+	gravity_energy = clamp(gravity_energy, 0, max_gravity_energy)
+
+	# Acumula queda
+	if not is_on_floor():
+		fall_speed += abs(velocity.y) * delta
 
 	match state:
 		PlayerState.GROUND:
@@ -275,3 +310,10 @@ func _physics_process(delta):
 			air_state(delta)
 
 	move_and_slide()
+
+	var is_on_floor_now = is_on_floor()
+
+	if not was_on_floor and is_on_floor_now:
+		play_land_feedback()
+
+	was_on_floor = is_on_floor_now

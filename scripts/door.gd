@@ -4,13 +4,14 @@ extends Area2D
 
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var open_sound: AudioStreamPlayer2D = $OpenSound
 
 var key_collected = false
 
 func open_door():
-	print("abrindo porta")
 	sprite_2d.play("opening")
 	key_collected = true
+	open_sound.play()
 
 func _on_body_entered(_body: Node2D) -> void:
 	if key_collected:

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://blomniriykp8h" path="res://assets/sprites/11-Door/Idle.png" id="1_hpvv5"]
 [ext_resource type="Script" uid="uid://ci8d7fl8ox3tj" path="res://scripts/door.gd" id="1_uvdjg"]
 [ext_resource type="Texture2D" uid="uid://ch33c4h3be00a" path="res://assets/sprites/11-Door/Opening (46x56).png" id="2_uvdjg"]
+[ext_resource type="AudioStream" uid="uid://dcbnsy3hn783o" path="res://audio/creaky_door_hinge.wav" id="4_p3vjq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83dcw"]
 atlas = ExtResource("2_uvdjg")
@@ -75,5 +76,8 @@ frame_progress = 1.0
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_ts0s0")
 debug_color = Color(0, 0.6, 0, 0.41960785)
+
+[node name="OpenSound" type="AudioStreamPlayer2D" parent="." unique_id=1196853534]
+stream = ExtResource("4_p3vjq")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

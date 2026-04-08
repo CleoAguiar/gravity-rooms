@@ -79,5 +79,6 @@ debug_color = Color(0, 0.6, 0, 0.41960785)
 
 [node name="OpenSound" type="AudioStreamPlayer2D" parent="." unique_id=1196853534]
 stream = ExtResource("4_p3vjq")
+volume_db = -10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

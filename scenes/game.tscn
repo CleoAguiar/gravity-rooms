@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bam8s42mffcl4" path="res://assets/sprites/Box.png" id="5_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="12_dinhu"]
+[ext_resource type="AudioStream" uid="uid://b6qebuk3qgao8" path="res://audio/crimsonstatbgm1.ogg" id="13_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbhrr"]
 texture = ExtResource("1_lnu2h")
@@ -650,5 +651,9 @@ scale = Vector2(2, 2)
 z_index = 4
 position = Vector2(148, 201)
 label = NodePath("../TileMaps/Label")
+
+[node name="AmbientSound" type="AudioStreamPlayer2D" parent="." unique_id=947455520]
+stream = ExtResource("13_kvuet")
+autoplay = true
 
 [connection signal="collected" from="TileMaps/Key" to="Door" method="open_door"]

@@ -219,4 +219,4 @@ volume_db = -12.0
 
 [node name="LandSound" type="AudioStreamPlayer2D" parent="." unique_id=522025070]
 stream = ExtResource("8_i623q")
-volume_db = -5.0
+volume_db = -10.0

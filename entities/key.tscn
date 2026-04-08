@@ -38,5 +38,6 @@ shape = SubResource("RectangleShape2D_brs3p")
 
 [node name="PickupSound" type="AudioStreamPlayer2D" parent="." unique_id=1217131650]
 stream = ExtResource("3_xagmd")
+volume_db = -10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

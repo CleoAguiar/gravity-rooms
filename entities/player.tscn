@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cm8mwcgyag7ja" path="res://assets/sprites/01-King Human/Jump (78x58).png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dqhkr81lm3eua" path="res://assets/sprites/01-King Human/Run (78x58).png" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://j2x1ygdrxwov" path="res://audio/gravity_inverter.ogg" id="6_qsoyl"]
+[ext_resource type="AudioStream" uid="uid://dtshsln3llq1b" path="res://audio/wrong error.wav" id="7_6nm46"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsoyl"]
 atlas = ExtResource("2_qly61")
@@ -210,3 +211,7 @@ process_material = SubResource("ParticleProcessMaterial_qly61")
 [node name="GravitySound" type="AudioStreamPlayer2D" parent="." unique_id=1905140142]
 stream = ExtResource("6_qsoyl")
 volume_db = -10.0
+
+[node name="ErrorSound" type="AudioStreamPlayer2D" parent="." unique_id=613242845]
+stream = ExtResource("7_6nm46")
+volume_db = -12.0

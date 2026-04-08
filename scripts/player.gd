@@ -10,6 +10,7 @@ enum PlayerState {
 @onready var jump_particles: GPUParticles2D = $JumpEffect
 @onready var camera = get_viewport().get_camera_2d()
 @onready var gravity_sound: AudioStreamPlayer2D = $GravitySound
+@onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 
 # Movimento
 const SPEED = 200.0
@@ -159,6 +160,10 @@ func toggle_gravity():
 	else:
 		if gravity_energy > 0:
 			activate_gravity()
+		else:
+			if !error_sound.playing:
+				error_sound.pitch_scale = randf_range(0.95, 1.05)
+				error_sound.play()
 
 
 # =========================

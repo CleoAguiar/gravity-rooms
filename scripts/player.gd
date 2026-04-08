@@ -135,6 +135,10 @@ func activate_gravity():
 	# TUTORIAL
 	if tutorial_manager:
 		tutorial_manager.on_gravity_used()
+	
+	if !$GravitySound.playing:
+		$GravitySound.pitch_scale = randf_range(0.9, 1.1)
+		$GravitySound.play()
 
 func deactivate_gravity():
 	gravity_active = false

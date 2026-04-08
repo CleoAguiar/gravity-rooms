@@ -30,8 +30,8 @@ var gravity_active := false
 var max_gravity_energy := 3.0
 var gravity_energy := 3.0
 
-var drain_rate := 1.5
-var recharge_rate := 2.0
+var drain_rate := 2.0 #1.5
+var recharge_rate := 2.5 #2.0
 var air_recharge_rate := 0.0 # Taxa de carregamento no AR 0.3
 
 # Estado

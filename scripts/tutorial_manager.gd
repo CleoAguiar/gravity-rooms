@@ -1,6 +1,6 @@
 extends Node
 
-@export var instruction_path: NodePath
+#@export var instruction_path: NodePath
 @export var hint_delay := 5.0
 @export var blink_loops := 6
 
@@ -8,7 +8,8 @@ var time := 0.0
 var blinking := false
 var completed := false
 
-@onready var instruction: TileMapLayer = get_node(instruction_path)
+var instruction: TileMapLayer
+#@onready var instruction: TileMapLayer = get_node(instruction_path)
 
 var tween: Tween
 var original_y := 0.0

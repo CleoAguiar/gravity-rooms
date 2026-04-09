@@ -39,16 +39,18 @@ func _on_body_entered(body: Node2D) -> void:
 	if collected_once:
 		return
 	
-	if body.is_in_group("Player"):
+	if not body.is_in_group("Player"):
+		return
+	else:
 		sound.pitch_scale = randf_range(0.98, 1.05)
 		sound.play()
 		
 		# Esconde visualmente
 		sprite.visible = false
-		collision.disabled = true
+		collision.set_deferred("disabled", true)
 		
 		# Espera o som terminar antes de deletar
 		await sound.finished
 		
 		emit_signal("collected")
-		queue_free()
+		call_deferred("queue_free")

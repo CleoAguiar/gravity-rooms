@@ -10,19 +10,33 @@ extends Node2D
 @onready var ui_label: Label = $UI/Label
 @onready var tile_map: TileMap = $World/TileMap
 
-var player_ref: Node2D
+var player_instance: CharacterBody2D
+var key_instance: Area2D
+var door_instance: Area2D
 
 func _ready():
 	validate_scenes()
-	spawn_player()
-	spawn_key()
-	spawn_door()
+	spawn_all()
 
 # Validação (evita erro silencioso)
 func validate_scenes():
 	assert(player_scene != null, "player_scene não definido!")
 	assert(key_scene != null, "key_scene não definido!")
 	assert(door_scene != null, "door_scene não definido!")
+
+func spawn_all():
+	spawn_player()
+	spawn_key()
+	spawn_door()
+
+func reset_level():
+	if player_instance:
+		player_instance.queue_free()
+	if key_instance:
+		key_instance.queue_free()
+	if door_instance:
+		door_instance.queue_free()
+	spawn_all()
 
 # TileMap
 func get_tilemap_bounds() -> Rect2:
@@ -35,17 +49,16 @@ func get_tilemap_bounds() -> Rect2:
 
 # PLAYER + CAMERA
 func spawn_player():
-	var player = player_scene.instantiate()
-	player.global_position = player_spawn.global_position
-	add_child(player)
+	player_instance = player_scene.instantiate()
+	player_instance.global_position = player_spawn.global_position
+	add_child(player_instance)
 
-	player_ref = player
-
-	setup_camera(player)
+	setup_camera(player_instance)
 
 func respawn_player(spawn_position: Vector2):
-	player_spawn.global_position = spawn_position
-	player_spawn.reset_state()
+	if player_instance:
+		player_instance.global_position = spawn_position
+		player_instance.reset_state()
 
 func find_camera(node: Node) -> Camera2D:
 	for child in node.get_children():
@@ -59,7 +72,6 @@ func find_camera(node: Node) -> Camera2D:
 	return null
 
 func setup_camera(player: Node2D):
-	#var camera: Camera2D = player.get_node_or_null("Camera2D")
 	var camera = find_camera(player)
 
 	if camera == null:
@@ -75,22 +87,27 @@ func setup_camera(player: Node2D):
 
 # KEY
 func spawn_key():
-	var key = key_scene.instantiate()
-	key.global_position = key_spawn.global_position
-	add_child(key)
+	key_instance = key_scene.instantiate()
+	key_instance.global_position = key_spawn.global_position
+	add_child(key_instance)
 
-	key.collected.connect(_on_key_collected)
+	key_instance.collected.connect(_on_key_collected)
 
 # DOOR
 func spawn_door():
-	var door = door_scene.instantiate()
-	door.global_position = door_spawn.global_position
-	
-	if "ui_label" in door:
-		door.ui_label = ui_label
-	
-	add_child(door) 
+	door_instance = door_scene.instantiate()
+	door_instance.global_position = door_spawn.global_position
+
+	door_instance.ui_label = ui_label
+
+	add_child(door_instance)
 
 # EVENTO
 func _on_key_collected():
 	get_tree().call_group("doors", "open_door")
+
+# Instruction
+func get_instructions() -> Array:
+	return get_tree().get_nodes_in_group("instruction").filter(
+		func(n): return is_ancestor_of(n)
+	)

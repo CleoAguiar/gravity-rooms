@@ -1,6 +1,5 @@
 extends Node
 
-#@export var instruction_path: NodePath
 @export var hint_delay := 5.0
 @export var blink_loops := 6
 
@@ -8,23 +7,32 @@ var time := 0.0
 var blinking := false
 var completed := false
 
-var instruction: TileMapLayer
-#@onready var instruction: TileMapLayer = get_node(instruction_path)
-
+var instruction: Array = []
+var original_y: Dictionary = {}
 var tween: Tween
-var original_y := 0.0
+
 
 func on_gravity_used():
 	complete_tutorial()
 
 
 func _ready():
-	if instruction:
-		original_y = instruction.position.y
+	pass
+
+
+func setup_instructions():
+	original_y.clear()
+	
+	for i in instruction:
+		if i:
+			original_y[i] = i.position.y
 
 
 func _process(delta):
 	if completed:
+		return
+	
+	if instruction.is_empty():
 		return
 
 	time += delta
@@ -34,21 +42,36 @@ func _process(delta):
 
 
 func start_hint():
-	blinking = true
+	if instruction.is_empty():
+		return
 
+	# filtra válidos
+	var valid := []
+	
+	for i in instruction:
+		if i and original_y.has(i):
+			valid.append(i)
+
+	if valid.is_empty():
+		return
+
+	blinking = true
 	tween = create_tween()
 	tween.set_loops(blink_loops)
 
-	# Fade + movimento (bem visível)
-	tween.tween_property(instruction, "modulate:a", 0.3, 0.4)
-	tween.tween_property(instruction, "modulate:a", 1.0, 0.4)
+	for i in valid:
+		tween.tween_property(i, "modulate:a", 0.3, 0.4)
+		tween.tween_property(i, "modulate:a", 1.0, 0.4)
 
-	tween.parallel().tween_property(instruction, "position:y", original_y - 5, 0.4)
-	tween.parallel().tween_property(instruction, "position:y", original_y, 0.4)
+		tween.parallel().tween_property(i, "position:y", original_y[i] - 5, 0.4)
+		tween.parallel().tween_property(i, "position:y", original_y[i], 0.4)
 
 
 func complete_tutorial():
 	if completed:
+		return
+
+	if instruction.is_empty():
 		return
 
 	completed = true
@@ -57,7 +80,19 @@ func complete_tutorial():
 		tween.kill()
 
 	var t = create_tween()
-	t.tween_property(instruction, "modulate:a", 0.0, 0.3)
+
+	var valid := []
+	for i in instruction:
+		if i:
+			valid.append(i)
+
+	if valid.is_empty():
+		return
+
+	for i in valid:
+		t.tween_property(i, "modulate:a", 0.0, 0.3)
 
 	await t.finished
-	instruction.visible = false
+
+	for i in valid:
+		i.visible = false

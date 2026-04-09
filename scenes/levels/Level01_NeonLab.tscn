@@ -630,4 +630,7 @@ label = NodePath("../TileMaps/Label")
 position = Vector2(18, -185)
 scale = Vector2(2, 2)
 
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=730715185]
+position = Vector2(-355, 225)
+
 [connection signal="collected" from="Key" to="Door" method="open_door"]

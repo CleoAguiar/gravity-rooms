@@ -55,6 +55,40 @@ func _ready():
 	change_state(PlayerState.GROUND)
 
 # =========================
+# RESET PLAYER
+# =========================
+
+func reset_state():
+	# Movimento
+	velocity = Vector2.ZERO
+	
+	# Estado
+	change_state(PlayerState.GROUND)
+	
+	# Direção visual
+	animated_sprite.flip_h = false
+	animated_sprite.flip_v = false
+	
+	# Gravidade
+	gravity_active = false
+	gravity_direction = 1
+	up_direction = Vector2.UP
+	
+	# Energia
+	gravity_energy = max_gravity_energy
+	
+	# Jump / controle
+	jumps_left = max_jumps
+	coyote_timer = COYOTE_TIME
+	
+	# Impacto
+	fall_speed = 0.0
+	did_double_jump = false
+	
+	# Animação
+	animated_sprite.play("idle")
+
+# =========================
 # STATE MACHINE
 # =========================
 

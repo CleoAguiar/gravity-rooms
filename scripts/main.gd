@@ -13,6 +13,10 @@ func reset_level():
 	tween.tween_property(fade, "modulate:a", 1.0, 0.15)
 	await tween.finished
 	
+	
+	# delay cinematográfico
+	await get_tree().create_timer(0.2).timeout
+	
 	load_level(current_level_path)
 	
 	var tween_in = create_tween()
@@ -44,23 +48,27 @@ func setup_level(level):
 func load_level(path):
 	current_level_path = path
 	
-	# Player fica visível
-	modulate.a = 0.0
-	
-	# limpa fase atual
+	# limpa fase
 	for child in level_container.get_children():
 		child.queue_free()
 	
-	# instancia nova fase
 	var level = load(path).instantiate()
 	level_container.add_child(level)
 	
-	# injeta dependências
 	setup_level(level)
 	
-	# FADE IN
+	# pequeno delay antes de aparecer
+	await get_tree().create_timer(0.1).timeout
+	
+	# fade in
 	var tween = create_tween()
-	tween.tween_property(fade, "modulate:a", 0.0, 0.2)
+	tween.tween_property(fade, "modulate:a", 0.0, 0.25)
+	
+	await tween.finished
+	
+	# delay pós-fade (sensação de “entrada”)
+	await get_tree().create_timer(0.1).timeout
+
 
 func _ready():
 	fade.modulate.a = 1.0

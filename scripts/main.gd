@@ -60,7 +60,7 @@ func load_level(path):
 	
 	# FADE IN
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, 0.2)
+	tween.tween_property(fade, "modulate:a", 0.0, 0.2)
 
 func _ready():
 	fade.modulate.a = 1.0

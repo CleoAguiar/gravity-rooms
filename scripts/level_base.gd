@@ -43,6 +43,10 @@ func spawn_player():
 
 	setup_camera(player)
 
+func respawn_player(spawn_position: Vector2):
+	player_spawn.global_position = spawn_position
+	player_spawn.reset_state()
+
 func find_camera(node: Node) -> Camera2D:
 	for child in node.get_children():
 		if child is Camera2D:

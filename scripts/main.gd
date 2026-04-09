@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var player: CharacterBody2D = $World/Player
 @onready var level_container: Node = $World/LevelContainer
 @onready var fade: ColorRect = $FadeLayer/ColorRect
 @onready var tutorial_manager: Node = $TutorialManager
@@ -24,26 +23,25 @@ func reset_level():
 
 func setup_level(level):
 	var instructions = []
-	
+
 	for node in level.get_tree().get_nodes_in_group("instruction"):
 		if level.is_ancestor_of(node):
 			instructions.append(node)
-	
+
 	tutorial_manager.instruction = instructions
-	
+
 	# reset estado
 	tutorial_manager.time = 0.0
 	tutorial_manager.blinking = false
 	tutorial_manager.completed = false
 
-	
 	tutorial_manager.setup_instructions()
-	
-	# Reposicionar player
+
+	# Reposicionar player (agora responsabilidade do level)
 	var spawn = level.get_node_or_null("SpawnPoint")
 	if spawn:
-		player.global_position = spawn.global_position
-		player.reset_state()
+		if level.has_method("respawn_player"):
+			level.respawn_player(spawn.global_position)
 
 func load_level(path):
 	current_level_path = path

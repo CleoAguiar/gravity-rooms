@@ -8,7 +8,7 @@ var shake_decay := 10.0
 var shake_offset := Vector2.ZERO
 
 func _ready() -> void:
-	get_target()
+	set_camera_limits()
 
 func _process(delta: float) -> void:
 	if not target:
@@ -28,17 +28,14 @@ func _process(delta: float) -> void:
 		shake_offset = Vector2.ZERO
 
 	# Aplica posição final
-	position = base_position + shake_offset
+	global_position = base_position + shake_offset
 
 
-func get_target():
-	var nodes = get_tree().get_nodes_in_group("Player")
-	if nodes.size() == 0:
-		push_error("Player not found")
-		return
-	
-	target = nodes[0]
-
+func set_camera_limits():
+	limit_left = -512
+	limit_right = 512
+	limit_top = -300
+	limit_bottom = 300
 
 # FUNÇÃO QUE O PLAYER CHAMA
 func shake(intensity := 6.0):

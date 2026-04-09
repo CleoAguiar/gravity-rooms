@@ -2,11 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cj4kea82cxaq7" path="res://scripts/camera.gd" id="1_ixxe8"]
 
-[node name="Camera" type="Camera2D" unique_id=1040924369]
-limit_left = -512
-limit_top = -320
-limit_right = 512
-limit_bottom = 320
+[node name="Camera" type="Camera2D" unique_id=1040924369 groups=["player_camera"]]
 position_smoothing_enabled = true
 script = ExtResource("1_ixxe8")
 metadata/_edit_vertical_guides_ = [2583.0]

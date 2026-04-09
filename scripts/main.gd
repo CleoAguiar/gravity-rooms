@@ -73,7 +73,7 @@ func load_level(path):
 func _ready():
 	fade.modulate.a = 1.0
 	
-	load_level("res://scenes/levels/Level01_NeonLab.tscn")
+	load_level("res://scenes/levels/Level_Base.tscn")
 	
 	# fade in inicial
 	var tween = create_tween()

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dch5r2bfoclli" path="res://entities/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://ciofrv14j3st6" path="res://scripts/tutorial_manager.gd" id="2_vtaks"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="6_p57ef"]
-[ext_resource type="PackedScene" uid="uid://kduxfagsk0c8" path="res://scenes/levels/Level01_NeonLab.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/Level_Base.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="12_dinhu"]
 [ext_resource type="AudioStream" uid="uid://b6qebuk3qgao8" path="res://audio/crimsonstatbgm1.ogg" id="13_kvuet"]
 
@@ -35,7 +35,7 @@ z_index = 5
 position = Vector2(-355, 225)
 scale = Vector2(2, 2)
 
-[node name="Camera" parent="World/Player" unique_id=1040924369 instance=ExtResource("6_p57ef")]
+[node name="Camera2" parent="World/Player" unique_id=1040924369 instance=ExtResource("6_p57ef")]
 position = Vector2(-82.55005, -819.8495)
 scale = Vector2(0.5, 0.5)
 limit_top = -310
@@ -43,7 +43,7 @@ limit_bottom = 310
 
 [node name="LevelContainer" type="Node" parent="World" unique_id=1324740044]
 
-[node name="Level01_NeonLab" parent="World/LevelContainer" unique_id=1799196218 instance=ExtResource("7_u5sy4")]
+[node name="LevelBase" parent="World/LevelContainer" unique_id=1222328850 instance=ExtResource("7_o6xl0")]
 
 [node name="FadeLayer" type="CanvasLayer" parent="." unique_id=433764643]
 

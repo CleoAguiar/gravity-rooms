@@ -1,24 +1,33 @@
 # 🎮 Gravity Rooms
 
-A puzzle-platformer where you control gravity to escape mysterious rooms.
+**Flip gravity. Rethink space. Escape the room.**
+
+A 2D puzzle-platformer where every level is a self-contained challenge built around a single idea: **gravity is a tool**.
 
 ---
 
-## 🧠 About the Game
+## 🧠 About
 
-**Gravity Rooms** is a 2D puzzle-platformer focused on simple mechanics and clever level design.
+**Gravity Rooms** is a minimalist puzzle-platformer focused on **clarity, precision, and smart level design**.
 
-Each level is a closed room where the player must **invert gravity** to solve puzzles, avoid hazards, and reach the exit.
+Each level is a compact room where players must:
+
+* Invert gravity
+* Reinterpret the environment
+* Solve spatial puzzles to reach the exit
+
+No tutorials. No hand-holding.
+You learn by playing.
 
 ---
 
-## 🎯 Core Features
+## 🎯 Key Features
 
-* 🔄 Gravity inversion mechanic
-* 🧩 Puzzle-based level design
-* ⚡ Fast retry gameplay loop
-* 🧠 Progressive difficulty (learn by playing)
-* 🎮 Simple controls, deep gameplay
+* 🔄 **Gravity Inversion** — turn the world upside down instantly
+* 🧩 **Handcrafted Puzzles** — every level teaches something new
+* ⚡ **Fast Retry Loop** — fail, retry, improve in seconds
+* 📈 **Progressive Difficulty** — from simple ideas to complex mastery
+* 🎮 **Simple Controls, Deep Gameplay**
 
 ---
 
@@ -33,76 +42,81 @@ Each level is a closed room where the player must **invert gravity** to solve pu
 
 ---
 
-## 📸 Gameplay Concept
+## 🎮 Gameplay
 
 * Walk, jump, and flip gravity
 * Use the ceiling as your new floor
-* Solve puzzles using timing and positioning
-* Interact with buttons, boxes, and hazards
+* Solve puzzles through timing and positioning
+* Avoid hazards and navigate tight spaces
 
 ---
 
-## 🧪 Current Status
+## 🚧 Development Status
 
-🚧 In development (early prototype)
+**Current Stage:** Early Prototype
 
-Planned features:
+### Planned
 
-* [ ] Core gravity system
-* [ ] First 10 levels
-* [ ] Basic UI
-* [ ] Sound effects
-* [ ] Steam page
+* [ ] 30 handcrafted levels across multiple biomes
+* [ ] Polished movement and game feel
+* [ ] Visual and audio feedback improvements
+* [ ] UI and player feedback systems
+* [ ] Steam release
 
 ---
 
-## 🚀 Roadmap
+## 🗺️ Roadmap
 
-* Prototype (core mechanics)
-* Level design (30+ rooms)
-* Polish & juice
-* Trailer
-* Release on Steam
+1. Core mechanics (✅ in progress)
+2. Level design (30 levels)
+3. Polish & juice
+4. Trailer & marketing
+5. Release
 
 ---
 
 ## 🛠️ Built With
 
-* Godot
+* **Godot Engine**
 
 ---
 
-## 📂 Project Structure (planned)
+## 📂 Project Structure
 
 ```
+/game
+/docs
 /assets
-/entities
-/scripts
 /scenes
+/scripts
 /ui
 /audio
 ```
 
 ---
 
-## 💡 Inspiration
+## 💡 Design Philosophy
 
-Inspired by classic puzzle-platformers and games that explore unique mechanics through simple design.
+* If a level needs explanation, it’s wrong
+* If gravity isn’t required, the level failed
+* Simple > complex
+* Clarity > difficulty
 
 ---
 
-## 📢 Follow the Development
+## 📢 Follow Development
 
-I’ll be sharing updates as the game evolves. Feedback is always welcome!
+Updates will be shared as the project evolves.
+Feedback, ideas, and playtesting insights are always welcome.
 
 ---
 
 ## 📄 License
 
-This project is currently for personal and portfolio use.
+Currently for **portfolio and personal use**.
 
 ---
 
 ## ❤️ Acknowledgements
 
-Thanks to the indie dev community for inspiration and learning resources.
+Inspired by classic puzzle-platformers and the indie dev community.

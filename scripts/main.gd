@@ -1,17 +1,22 @@
 extends Node2D
 
-@onready var player: CharacterBody2D = $Player
-@onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
-@onready var level_container: Node = $LevelContainer
+@onready var player: CharacterBody2D = $World/Player
+@onready var level_container: Node = $World/LevelContainer
+@onready var fade: ColorRect = $FadeLayer/ColorRect
 @onready var tutorial_manager: Node = $TutorialManager
+@onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
 
 var current_level_path := ""
 
 func reset_level():
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.15)
+	tween.tween_property(fade, "modulate:a", 1.0, 0.15)
 	await tween.finished
+	
 	load_level(current_level_path)
+	
+	var tween_in = create_tween()
+	tween_in.tween_property(fade, "modulate:a", 0.0, 0.2)
 
 func setup_level(level):
 	var instructions = []
@@ -58,12 +63,19 @@ func load_level(path):
 	tween.tween_property(self, "modulate:a", 1.0, 0.2)
 
 func _ready():
+	fade.modulate.a = 1.0
+	
 	load_level("res://scenes/levels/Level01_NeonLab.tscn")
+	
+	# fade in inicial
+	var tween = create_tween()
+	tween.tween_property(fade, "modulate:a", 0.0, 0.3)
 	
 	ambient_sound.volume_db = -5
 	ambient_sound.play()
 	
-	var tween = create_tween()
+	var tween_audio = create_tween()
+	tween_audio.tween_property(ambient_sound, "volume_db", -15, 2.0)
 	tween.tween_property(ambient_sound, "volume_db", -15, 2.0)
 
 func _process(_delta):

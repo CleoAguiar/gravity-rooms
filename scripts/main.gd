@@ -8,7 +8,8 @@ extends Node2D
 var levels = [
 	"res://scenes/levels/level_01_neon_lab.tscn",
 	"res://scenes/levels/level_02_neon_lab.tscn",
-	"res://scenes/levels/level_03_neon_lab.tscn"
+	"res://scenes/levels/level_03_neon_lab.tscn",
+	"res://scenes/levels/level_end.tscn"
 ]
 
 var current_level_index := 0
@@ -71,9 +72,6 @@ func load_level(scene_path: String):
 	# Carrega nova fase
 	var scene = load(scene_path)
 	var level_instance = scene.instantiate()
-	
-	print(level_instance)
-	print(level_instance.get_script())
 	
 	# Conecta o sinal DEPOIS de instanciar
 	if level_instance.has_signal("level_completed"):

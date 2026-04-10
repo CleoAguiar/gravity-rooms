@@ -12,7 +12,6 @@ var levels = [
 ]
 
 var current_level_index := 0
-var current_level := 0
 var current_level_node: Node = null
 
 var current_level_path := ""
@@ -56,7 +55,9 @@ func setup_level(level):
 		tutorial_manager.start_tutorial(instructions)
 
 
-func load_level(scene_path: String):
+func load_level(scene_path: String):	
+	current_level_path = scene_path
+	
 	# Remove players antigos
 	for p in get_tree().get_nodes_in_group("player"):
 		p.queue_free()
@@ -71,6 +72,13 @@ func load_level(scene_path: String):
 	var scene = load(scene_path)
 	var level_instance = scene.instantiate()
 	
+	print(level_instance)
+	print(level_instance.get_script())
+	
+	# Conecta o sinal DEPOIS de instanciar
+	if level_instance.has_signal("level_completed"):
+		level_instance.connect("level_completed", Callable(self, "next_level"))
+	
 	level_container.add_child(level_instance)
 	current_level_node = level_instance
 	
@@ -81,15 +89,15 @@ func load_level(scene_path: String):
 	if is_instance_valid(level_instance):
 		setup_level(level_instance)
 
-
 func next_level():
 	current_level_index += 1
 	
+	print("Indo para índice:", current_level_index)
 	if current_level_index >= levels.size():
 		print("Fim do jogo!")
 		return
 	
-	load_level(levels[current_level])
+	load_level(levels[current_level_index])
 
 func change_level(next_level_path: String):
 	await fade_out()
@@ -107,7 +115,7 @@ func fade_in():
 	await tween.finished
 
 func _ready():
-	load_level(levels[current_level])
+	load_level(levels[current_level_index])
 
 	# fade inicial
 	var tween = create_tween()

@@ -16,14 +16,14 @@ func open_door():
 
 func _on_body_entered(_body: Node2D) -> void:
 	if key_collected:
-		emit_signal("player_entered")
-		
 		if ui_label:
 			ui_label.text = "Você conseguiu!"
-		
+		emit_signal("player_entered")
+	
 		var main = get_tree().current_scene
-		if main and main.has_method("change_level"):
-			main.change_level("res://scenes/levels/level_02_neon_lab.tscn")
+		if main and main.has_method("next_level"):
+			main.next_level()
+	
 	else:
 		if ui_label:
 			ui_label.text = "Você precisa de uma chave!"

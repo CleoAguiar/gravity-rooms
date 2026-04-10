@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://j2d7soibx86y"]
+
+[ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/level_base.tscn" id="1_0xd83"]
+
+[node name="Level01_NeonLab" unique_id=1222328850 instance=ExtResource("1_0xd83")]
+
+[node name="PlayerSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="0" unique_id=504255497]
+position = Vector2(-323, 181)
+
+[node name="KeySpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="1" unique_id=502101508]
+position = Vector2(-16, -173)
+
+[node name="DoorSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
+position = Vector2(159, 214)
+
+[node name="Label" parent="UI" parent_id_path=PackedInt32Array(40086895) index="0" unique_id=110154881]
+z_index = 100

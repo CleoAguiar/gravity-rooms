@@ -878,8 +878,6 @@ script = ExtResource("1_orp6s")
 player_scene = ExtResource("2_yoc4t")
 key_scene = ExtResource("3_ummtx")
 door_scene = ExtResource("4_5ppd1")
-metadata/_edit_vertical_guides_ = [511.0]
-metadata/_edit_horizontal_guides_ = [-256.0]
 
 [node name="World" type="Node2D" parent="." unique_id=1961563888]
 
@@ -932,6 +930,7 @@ tile_set = SubResource("TileSet_lbhrr")
 [node name="UI" type="CanvasLayer" parent="." unique_id=40086895]
 
 [node name="Label" type="Label" parent="UI" unique_id=110154881]
+z_index = 100
 offset_left = 153.0
 offset_top = 93.0
 offset_right = 274.0

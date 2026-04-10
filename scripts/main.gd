@@ -5,7 +5,7 @@ extends Node2D
 @onready var tutorial_manager: Node = $TutorialManager
 @onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
 
-const START_LEVEL = "res://scenes/levels/Level_Base.tscn"
+const START_LEVEL = "res://scenes/levels/level_01_neon_lab.tscn"
 var current_level_path := ""
 var current_level: Node = null
 

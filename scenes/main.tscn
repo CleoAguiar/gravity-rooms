@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0p2lxhvcxu62" path="res://scripts/main.gd" id="1_0tnpc"]
 [ext_resource type="Script" uid="uid://ciofrv14j3st6" path="res://scripts/tutorial_manager.gd" id="2_vtaks"]
-[ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/Level_Base.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://j2d7soibx86y" path="res://scenes/levels/level_01_neon_lab.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="12_dinhu"]
 [ext_resource type="AudioStream" uid="uid://b6qebuk3qgao8" path="res://audio/crimsonstatbgm1.ogg" id="13_kvuet"]
 
@@ -30,7 +30,7 @@ autoplay = true
 
 [node name="LevelContainer" type="Node" parent="World" unique_id=1324740044]
 
-[node name="LevelBase" parent="World/LevelContainer" unique_id=1222328850 instance=ExtResource("7_o6xl0")]
+[node name="Level01_NeonLab" parent="World/LevelContainer" unique_id=1222328850 instance=ExtResource("5_tbgi4")]
 
 [node name="FadeLayer" type="CanvasLayer" parent="." unique_id=433764643]
 

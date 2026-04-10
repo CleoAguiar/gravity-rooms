@@ -39,7 +39,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if collected_once:
 		return
 	
-	if not body.is_in_group("Player"):
+	if not body.name == "Player":
 		return
 	else:
 		sound.pitch_scale = randf_range(0.98, 1.05)

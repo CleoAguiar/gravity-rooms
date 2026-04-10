@@ -4,6 +4,7 @@ extends Node2D
 @export var key_scene: PackedScene
 @export var door_scene: PackedScene
 @export var camera_zoom: Vector2 = Vector2(0.8, 0.8)
+@export var level_scale: float = 1.0
 
 @onready var player_spawn: Marker2D = $Spawns/PlayerSpawn
 @onready var key_spawn: Marker2D = $Spawns/KeySpawn
@@ -52,8 +53,8 @@ func get_tilemap_bounds() -> Rect2:
 func spawn_player():
 	player_instance = player_scene.instantiate()
 	player_instance.global_position = player_spawn.global_position
+	apply_level_scale(player_instance)
 	add_child(player_instance)
-
 	setup_camera(player_instance)
 
 func respawn_player(spawn_position: Vector2):
@@ -65,7 +66,6 @@ func find_camera(node: Node) -> Camera2D:
 	for child in node.get_children():
 		if child is Camera2D:
 			return child
-		
 		var result = find_camera(child)
 		if result:
 			return result
@@ -88,21 +88,24 @@ func setup_camera(player: Node2D):
 	
 	camera.zoom = camera_zoom
 
+# SCALE TO ENTITIES
+func apply_level_scale(node: Node2D):
+	node.scale = Vector2(level_scale, level_scale)
+
 # KEY
 func spawn_key():
 	key_instance = key_scene.instantiate()
 	key_instance.global_position = key_spawn.global_position
+	apply_level_scale(key_instance)
 	add_child(key_instance)
-
 	key_instance.collected.connect(_on_key_collected)
 
 # DOOR
 func spawn_door():
 	door_instance = door_scene.instantiate()
 	door_instance.global_position = door_spawn.global_position
-
+	apply_level_scale(door_instance)
 	door_instance.ui_label = ui_label
-
 	add_child(door_instance)
 
 # EVENTO

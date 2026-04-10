@@ -922,10 +922,13 @@ tile_set = SubResource("TileSet_lbhrr")
 [node name="Spawns" type="Node2D" parent="." unique_id=1211489300]
 
 [node name="PlayerSpawn" type="Marker2D" parent="Spawns" unique_id=504255497]
+position = Vector2(-283, 180)
 
 [node name="KeySpawn" type="Marker2D" parent="Spawns" unique_id=502101508]
+position = Vector2(-7, -204)
 
 [node name="DoorSpawn" type="Marker2D" parent="Spawns" unique_id=962418352]
+position = Vector2(159, 214)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=40086895]
 

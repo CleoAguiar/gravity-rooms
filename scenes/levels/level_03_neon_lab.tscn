@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cdem4ljj3tsnc"]
+
+[ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/level_base.tscn" id="1_pxxg1"]
+
+[node name="Level03_NeonLab" unique_id=1222328850 instance=ExtResource("1_pxxg1")]
+camera_zoom = Vector2(0.9, 0.9)
+level_scale = 2.0
+
+[node name="Platform" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="1" unique_id=1747881900]
+tile_map_data = PackedByteArray(0, 0, 244, 255, 250, 255, 1, 0, 4, 0, 2, 0, 0, 0, 2, 0, 252, 255, 1, 0, 4, 0, 4, 0, 0, 0, 10, 0, 0, 0, 1, 0, 4, 0, 4, 0, 0, 0, 250, 255, 5, 0, 1, 0, 4, 0, 4, 0, 0, 0)
+
+[node name="PlayerSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="0" unique_id=504255497]
+position = Vector2(-356, 200)
+
+[node name="KeySpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="1" unique_id=502101508]
+position = Vector2(-457, -221)

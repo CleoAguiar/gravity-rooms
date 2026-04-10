@@ -57,7 +57,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ts0s0"]
-size = Vector2(65, 99)
+size = Vector2(44, 54)
 
 [node name="Door" type="Area2D" unique_id=727187839 groups=["doors"]]
 z_index = 5
@@ -66,7 +66,6 @@ collision_mask = 2
 script = ExtResource("1_uvdjg")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=708807089]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ju5n0")
 animation = &"opening"
 autoplay = "idle"
@@ -74,7 +73,6 @@ frame = 4
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=939703725]
-position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_ts0s0")
 debug_color = Color(0, 0.6, 0, 0.41960785)
 

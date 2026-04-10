@@ -3,6 +3,7 @@ extends Node2D
 @export var player_scene: PackedScene
 @export var key_scene: PackedScene
 @export var door_scene: PackedScene
+@export var camera_zoom: Vector2 = Vector2(0.8, 0.8)
 
 @onready var player_spawn: Marker2D = $Spawns/PlayerSpawn
 @onready var key_spawn: Marker2D = $Spawns/KeySpawn
@@ -73,17 +74,19 @@ func find_camera(node: Node) -> Camera2D:
 
 func setup_camera(player: Node2D):
 	var camera = find_camera(player)
-
+	
 	if camera == null:
 		push_error("Camera2D não encontrada no Player!")
 		return
-
+	
 	var bounds = get_tilemap_bounds()
-
+	
 	camera.limit_left = bounds.position.x
 	camera.limit_right = bounds.position.x + bounds.size.x
 	camera.limit_top = bounds.position.y
 	camera.limit_bottom = bounds.position.y + bounds.size.y
+	
+	camera.zoom = camera_zoom
 
 # KEY
 func spawn_key():

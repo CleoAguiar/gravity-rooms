@@ -6,6 +6,9 @@
 camera_zoom = Vector2(0.9, 0.9)
 level_scale = 2.0
 
+[node name="Instruction" parent="World/TileMap" parent_id_path=PackedInt32Array(626809967) index="3" unique_id=700359313]
+tile_map_data = PackedByteArray(0, 0, 242, 255, 5, 0, 1, 0, 2, 0, 0, 0, 0, 0, 243, 255, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 243, 255, 6, 0, 0, 0, 4, 0, 2, 0, 0, 0, 244, 255, 5, 0, 1, 0, 3, 0, 0, 0, 0, 0)
+
 [node name="Platform" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="1" unique_id=1747881900]
 tile_map_data = PackedByteArray(0, 0, 244, 255, 250, 255, 1, 0, 4, 0, 2, 0, 0, 0, 2, 0, 252, 255, 1, 0, 4, 0, 4, 0, 0, 0, 10, 0, 0, 0, 1, 0, 4, 0, 4, 0, 0, 0, 250, 255, 5, 0, 1, 0, 4, 0, 4, 0, 0, 0)
 

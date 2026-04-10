@@ -7,13 +7,19 @@ func _ready():
 	get_player()
 
 func _process(delta):
-	if player:
+	if player == null:
+		get_player()
+		return
+	else:
 		update_bar(delta)
 
 func get_player():
-	var nodes = get_tree().get_nodes_in_group("Player")
+	var nodes = get_tree().get_nodes_in_group("player")
 	if nodes.size() > 0:
 		player = nodes[0]
+
+func set_player(p):
+	player = p
 
 func update_bar(delta):
 	var ratio = player.gravity_energy / player.max_gravity_energy

@@ -56,6 +56,9 @@ func spawn_player():
 	apply_level_scale(player_instance)
 	add_child(player_instance)
 	setup_camera(player_instance)
+	
+	player_instance.add_to_group("player")
+	get_tree().call_group("HUD", "set_player", player_instance)
 
 func respawn_player(spawn_position: Vector2):
 	if player_instance:

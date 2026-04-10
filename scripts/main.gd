@@ -43,7 +43,7 @@ func setup_level(level):
 		return
 	
 	# PLAYER
-	var player = get_tree().get_first_node_in_group("player")
+	var player = level.get_node_or_null("Player")
 	
 	# HUD (energia)
 	var hud = get_node("HUD")
@@ -57,12 +57,16 @@ func setup_level(level):
 
 
 func load_level(scene_path: String):
+	# Remove players antigos
+	for p in get_tree().get_nodes_in_group("player"):
+		p.queue_free()
+
 	# Remove fase atual com segurança
 	if is_instance_valid(current_level_node):
 		current_level_node.queue_free()
 		current_level_node = null
 	
-	# Carrega nova cena
+	# Carrega nova fase
 	var scene = load(scene_path)
 	var level_instance = scene.instantiate()
 	

@@ -64,6 +64,7 @@ func load_level(scene_path: String):
 	# Remove fase atual com segurança
 	if is_instance_valid(current_level_node):
 		current_level_node.queue_free()
+		await current_level_node.tree_exited
 		current_level_node = null
 	
 	# Carrega nova fase

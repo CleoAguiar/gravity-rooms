@@ -1,5 +1,7 @@
 extends Area2D
 
+signal player_entered
+
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var open_sound: AudioStreamPlayer2D = $OpenSound
@@ -15,6 +17,7 @@ func open_door():
 func _on_body_entered(_body: Node2D) -> void:
 	if key_collected:
 		if ui_label:
+			emit_signal("player_entered")
 			ui_label.text = "Você conseguiu!"
 	else:
 		if ui_label:

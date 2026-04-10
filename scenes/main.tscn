@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0p2lxhvcxu62" path="res://scripts/main.gd" id="1_0tnpc"]
 [ext_resource type="Script" uid="uid://ciofrv14j3st6" path="res://scripts/tutorial_manager.gd" id="2_vtaks"]
+[ext_resource type="Script" uid="uid://baqqxx84jprk8" path="res://scripts/hud.gd" id="4_tefeu"]
 [ext_resource type="PackedScene" uid="uid://j2d7soibx86y" path="res://scenes/levels/level_01_neon_lab.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="12_dinhu"]
 [ext_resource type="AudioStream" uid="uid://b6qebuk3qgao8" path="res://audio/crimsonstatbgm1.ogg" id="13_kvuet"]
@@ -13,6 +14,7 @@ script = ExtResource("1_0tnpc")
 script = ExtResource("2_vtaks")
 
 [node name="HUD" parent="." unique_id=1259982498 instance=ExtResource("12_dinhu")]
+script = ExtResource("4_tefeu")
 
 [node name="Audio" type="Node" parent="." unique_id=1821655008]
 

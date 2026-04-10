@@ -29,8 +29,8 @@ func update_bar(delta):
 
 	# cor dinâmica
 	if ratio > 0.6:
-		bar.color = Color(0.3, 0.7, 1)
+		bar.modulate  = Color(0.3, 0.7, 1)
 	elif ratio > 0.3:
-		bar.color = Color(1, 0.8, 0.2)
+		bar.modulate  = Color(1, 0.8, 0.2)
 	else:
-		bar.color = Color(1, 0.3, 0.3)
+		bar.modulate  = Color(1, 0.3, 0.3)

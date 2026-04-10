@@ -1,5 +1,7 @@
 extends Node2D
 
+signal level_completed
+
 @export var player_scene: PackedScene
 @export var key_scene: PackedScene
 @export var door_scene: PackedScene
@@ -114,6 +116,9 @@ func spawn_door():
 # EVENTO
 func _on_key_collected():
 	get_tree().call_group("doors", "open_door")
+
+func _on_door_player_entered():
+	emit_signal("level_completed")
 
 # Instruction
 func get_instructions() -> Array:

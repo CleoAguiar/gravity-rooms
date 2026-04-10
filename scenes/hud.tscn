@@ -20,9 +20,8 @@ offset_right = 220.0
 offset_bottom = 60.0
 color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 
-[node name="EnergyBar" type="ColorRect" parent="Control/EnergyBG" unique_id=1138985030]
+[node name="EnergyBar" type="ProgressBar" parent="Control/EnergyBG" unique_id=522139431]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 0
-offset_right = 40.0
+offset_right = 200.0
 offset_bottom = 40.0
-color = Color(0.3647059, 0.6627451, 1, 1)

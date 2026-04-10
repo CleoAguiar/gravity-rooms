@@ -5,10 +5,17 @@ extends Node2D
 @onready var tutorial_manager: Node = $TutorialManager
 @onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
 
-const START_LEVEL = "res://scenes/levels/level_01_neon_lab.tscn"
+var levels = [
+	"res://scenes/levels/level_01_neon_lab.tscn",
+	"res://scenes/levels/level_02_neon_lab.tscn",
+	"res://scenes/levels/level_03_neon_lab.tscn"
+]
+
+var current_level_index := 0
+var current_level := 0
+var current_level_node: Node = null
 
 var current_level_path := ""
-var current_level: Node = null
 var loading := false
 
 
@@ -22,8 +29,8 @@ func reset_level():
 
 	await get_tree().process_frame
 
-	if current_level and current_level.has_method("reset_level"):
-		current_level.reset_level()
+	if current_level_node and current_level_node.has_method("reset_level"):
+		current_level_node.reset_level()
 
 	await get_tree().create_timer(0.2).timeout
 
@@ -31,42 +38,48 @@ func reset_level():
 
 
 func setup_level(level):
-	tutorial_manager.instruction = level.get_instructions()
-	tutorial_manager.setup_instructions()
+		# PLAYER
+	var player = get_tree().get_first_node_in_group("player")
+	
+	# HUD (energia)
+	var hud = get_node("HUD")
+	if hud and player:
+		hud.set_player(player)
+	
+	# TUTORIAL
+	if tutorial_manager and level.has_method("get_instructions"):
+		var instructions = level.get_instructions()
+		tutorial_manager.start_tutorial(instructions)
 
 
-func load_level(path):
-	if loading:
-		return
+func load_level(scene_path: String):
+	# Remove fase atual
+	if current_level_node:
+		current_level_node.queue_free()
 
-	loading = true
-	current_level_path = path
+	var scene = load(scene_path)
+	var level_instance = scene.instantiate()
 
-	# limpa level atual corretamente
-	for child in level_container.get_children():
-		child.free()
+	level_container.add_child(level_instance)
 
-	# instancia novo level
-	var level = load(path).instantiate()
+	current_level_node = level_instance
 
-	level_container.add_child(level)
-	current_level = level
-
-	# garante que tudo está pronto antes de setup
 	await get_tree().process_frame
 
-	call_deferred("setup_level", level)
+	setup_level(level_instance)
 
-	# fade in
-	var tween = create_tween()
-	tween.tween_property(fade, "self_modulate:a", 0.0, 0.25)
-	await tween.finished
 
-	loading = false
+func next_level():
+	current_level_index += 1
 
+	if current_level_index >= levels.size():
+		print("Fim do jogo!")
+		return
+
+	load_level(levels[current_level])
 
 func _ready():
-	load_level(START_LEVEL)
+	load_level(levels[current_level])
 
 	# fade inicial
 	var tween = create_tween()

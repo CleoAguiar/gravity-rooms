@@ -31,7 +31,6 @@ func reset_level():
 
 
 func setup_level(level):
-	print("setup level")
 	tutorial_manager.instruction = level.get_instructions()
 	tutorial_manager.setup_instructions()
 

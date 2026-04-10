@@ -15,10 +15,15 @@ run/main_scene="uid://1v2icav1tv3o"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+TutorialManager="*uid://ciofrv14j3st6"
+
 [global_group]
 
 doors=""
 player=""
+tutorial_instruction=""
 
 [input]
 

@@ -6,7 +6,6 @@ enum PlayerState {
 }
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var tutorial_manager = get_parent().get_node_or_null("TutorialManager")
 @onready var jump_particles: GPUParticles2D = $JumpEffect
 @onready var camera = get_viewport().get_camera_2d()
 @onready var gravity_sound: AudioStreamPlayer2D = $GravitySound
@@ -169,9 +168,8 @@ func activate_gravity():
 
 	if camera:
 		camera.shake(8.0)
-
-	if tutorial_manager:
-		tutorial_manager.on_gravity_used()
+	
+	TutorialManager.on_gravity_used()
 
 	if !gravity_sound.playing:
 		gravity_sound.pitch_scale = randf_range(0.9, 1.1)

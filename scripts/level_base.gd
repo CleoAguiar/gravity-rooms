@@ -117,6 +117,6 @@ func _on_key_collected():
 
 # Instruction
 func get_instructions() -> Array:
-	return get_tree().get_nodes_in_group("instruction").filter(
+	return get_tree().get_nodes_in_group("tutorial_instruction").filter(
 		func(n): return is_ancestor_of(n)
 	)

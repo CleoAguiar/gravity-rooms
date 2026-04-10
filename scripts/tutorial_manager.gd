@@ -17,7 +17,9 @@ func on_gravity_used():
 
 
 func _ready():
-	pass
+	await get_tree().process_frame
+	instruction = get_tree().get_nodes_in_group("tutorial_instruction")
+	setup_instructions()
 
 
 func setup_instructions():
@@ -70,18 +72,19 @@ func start_hint():
 func complete_tutorial():
 	if completed:
 		return
-
-	if instruction.is_empty():
-		return
-
+	
 	completed = true
-
+	
 	if tween:
 		tween.kill()
 
+	if instruction.is_empty():
+		return
+	
 	var t = create_tween()
 
 	var valid := []
+	
 	for i in instruction:
 		if i:
 			valid.append(i)

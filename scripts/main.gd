@@ -38,7 +38,11 @@ func reset_level():
 
 
 func setup_level(level):
-		# PLAYER
+	# Garante que o level ainda existe
+	if not is_instance_valid(level):
+		return
+	
+	# PLAYER
 	var player = get_tree().get_first_node_in_group("player")
 	
 	# HUD (energia)
@@ -53,30 +57,49 @@ func setup_level(level):
 
 
 func load_level(scene_path: String):
-	# Remove fase atual
-	if current_level_node:
+	# Remove fase atual com segurança
+	if is_instance_valid(current_level_node):
 		current_level_node.queue_free()
-
+		current_level_node = null
+	
+	# Carrega nova cena
 	var scene = load(scene_path)
 	var level_instance = scene.instantiate()
-
+	
 	level_container.add_child(level_instance)
-
 	current_level_node = level_instance
-
+	
+	# Espera o node entrar na árvore
 	await get_tree().process_frame
-
-	setup_level(level_instance)
+	
+	# Segurança extra antes de usar
+	if is_instance_valid(level_instance):
+		setup_level(level_instance)
 
 
 func next_level():
 	current_level_index += 1
-
+	
 	if current_level_index >= levels.size():
 		print("Fim do jogo!")
 		return
-
+	
 	load_level(levels[current_level])
+
+func change_level(next_level_path: String):
+	await fade_out()
+	load_level(next_level_path)
+	await fade_in()
+
+func fade_out():
+	var tween = create_tween()
+	tween.tween_property(fade, "modulate:a", 1.0, 0.5)
+	await tween.finished
+
+func fade_in():
+	var tween = create_tween()
+	tween.tween_property(fade, "modulate:a", 0.0, 0.5)
+	await tween.finished
 
 func _ready():
 	load_level(levels[current_level])

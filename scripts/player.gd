@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal gravity_used
+
 enum PlayerState {
 	GROUND,
 	AIR
@@ -169,7 +171,8 @@ func activate_gravity():
 	if camera:
 		camera.shake(8.0)
 	
-	TutorialManager.on_gravity_used()
+	#TutorialManager.on_gravity_used()
+	emit_signal("gravity_used")
 
 	if !gravity_sound.playing:
 		gravity_sound.pitch_scale = randf_range(0.9, 1.1)

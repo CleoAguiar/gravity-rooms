@@ -50,6 +50,11 @@ func setup_level(level):
 	if hud and player:
 		hud.set_player(player)
 	
+	# SIGNAL GRAVITY USED
+	if player and tutorial_manager:
+		if player.has_signal("gravity_used"):
+			player.connect("gravity_used", Callable(tutorial_manager, "on_gravity_used"))
+	
 	# TUTORIAL
 	if tutorial_manager and level.has_method("get_instructions"):
 		var instructions = level.get_instructions()
@@ -90,7 +95,8 @@ func load_level(scene_path: String):
 func next_level():
 	current_level_index += 1
 	
-	print("Indo para índice:", current_level_index)
+	# DEBUG
+	#print("Indo para índice:", current_level_index)
 	if current_level_index >= levels.size():
 		print("Fim do jogo!")
 		return

@@ -76,9 +76,9 @@ func start_tutorial(instructions: Array):
 	
 	if tween:
 		tween.kill()
-
-	# define novas instruções
-	instruction = instructions
+	
+	await get_tree().process_frame
+	instruction = get_tree().get_nodes_in_group("tutorial_instruction")
 	
 	# salva posições iniciais
 	setup_instructions()

@@ -33,7 +33,7 @@ scale = Vector2(0.076171875, 0.076171875)
 sprite_frames = SubResource("SpriteFrames_wy8tx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028964251]
-position = Vector2(2, 1.5)
+position = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_brs3p")
 
 [node name="PickupSound" type="AudioStreamPlayer2D" parent="." unique_id=1217131650]

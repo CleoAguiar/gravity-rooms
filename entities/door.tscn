@@ -57,7 +57,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ts0s0"]
-size = Vector2(44, 54)
+size = Vector2(18, 27)
 
 [node name="Door" type="Area2D" unique_id=727187839 groups=["doors"]]
 z_index = 5
@@ -73,6 +73,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=939703725]
+position = Vector2(0, 13.5)
 shape = SubResource("RectangleShape2D_ts0s0")
 debug_color = Color(0, 0.6, 0, 0.41960785)
 

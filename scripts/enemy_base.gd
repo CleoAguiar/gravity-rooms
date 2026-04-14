@@ -39,6 +39,7 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 var health := max_health
 var direction := -1
 var player = null
+var level
 
 # =========================
 # READY
@@ -167,6 +168,10 @@ func die():
 
 func apply_level_scale(scale_value: float):
 	$AnimatedSprite2D.scale = Vector2(scale_value, scale_value)
+
+func setup(_level, _player):
+	level = _level
+	player = _player
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	print("entrou:", body.name)

@@ -1009,6 +1009,8 @@ script = ExtResource("1_orp6s")
 player_scene = ExtResource("2_yoc4t")
 key_scene = ExtResource("3_ummtx")
 door_scene = ExtResource("4_5ppd1")
+camera_zoom = null
+level_scale = null
 
 [node name="World" type="Node2D" parent="." unique_id=1961563888]
 

@@ -7,10 +7,12 @@ signal level_completed
 @export var door_scene: PackedScene
 @export var camera_zoom: Vector2 = Vector2(0.8, 0.8)
 @export var level_scale: float = 1.0
+@export var enemy_scene: PackedScene
 
 @onready var player_spawn: Marker2D = $World/Spawns/PlayerSpawn
 @onready var key_spawn: Marker2D = $World/Spawns/KeySpawn
 @onready var door_spawn: Marker2D = $World/Spawns/DoorSpawn
+@onready var entities: Node2D = $World/Entities
 @onready var ui_label: Label = $UI/Label
 @onready var tile_map: TileMap = $World/TileMap
 
@@ -120,6 +122,16 @@ func spawn_door():
 	apply_level_scale(door_instance)
 	door_instance.ui_label = ui_label
 	add_child(door_instance)
+
+# ENEMY
+func spawn_enemy(pos: Vector2):
+	var enemy = enemy_scene.instantiate()
+	entities.add_child(enemy)
+
+	enemy.global_position = pos
+
+	# Injeta dependências
+	enemy.setup(self, player_instance)
 
 # EVENTO
 func _on_key_collected():

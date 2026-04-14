@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://dnbj0npnvsch5"]
 
 [ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/level_base.tscn" id="1_3jl51"]
-[ext_resource type="PackedScene" uid="uid://3fbtspka0g4b" path="res://entities/king_pig.tscn" id="2_rd3c5"]
 
 [node name="Level04_AncientRuins" unique_id=1222328850 instance=ExtResource("1_3jl51")]
+camera_zoom = Vector2(0.8, 0.8)
 level_scale = 2.0
 metadata/_edit_vertical_guides_ = [-482.0]
 
@@ -24,5 +24,3 @@ position = Vector2(434, -247)
 
 [node name="DoorSpawn" parent="World/Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
 position = Vector2(192, 234)
-
-[node name="KingPig" parent="World/Entities" parent_id_path=PackedInt32Array(1502951389) index="0" unique_id=232797007 instance=ExtResource("2_rd3c5")]

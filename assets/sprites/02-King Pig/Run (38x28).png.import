@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqf8nqf2hprjh"
-path="res://.godot/imported/Dead (78x58).png-6e3d11a8639333e8cc040a7da73d157a.ctex"
+uid="uid://c1ghr1500pilp"
+path="res://.godot/imported/Run (38x28).png-75870c3d3e54f261371d1ffbecafff8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/01-King Human/Dead (78x58).png"
-dest_files=["res://.godot/imported/Dead (78x58).png-6e3d11a8639333e8cc040a7da73d157a.ctex"]
+source_file="res://assets/sprites/02-King Pig/Run (38x28).png"
+dest_files=["res://.godot/imported/Run (38x28).png-75870c3d3e54f261371d1ffbecafff8a.ctex"]
 
 [params]
 

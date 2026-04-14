@@ -45,6 +45,7 @@ var player = null
 # =========================
 func _ready():
 	change_state(State.IDLE)
+	print("mask:", $Hitbox.collision_mask)
 
 # =========================
 # LOOP
@@ -123,7 +124,7 @@ func update_state():
 # =========================
 # COMPORTAMENTO
 # =========================
-func handle_state(delta):
+func handle_state(_delta):
 	if current_state == State.DEAD:
 		velocity = Vector2.ZERO
 		return
@@ -163,3 +164,12 @@ func die():
 	
 	await sprite.animation_finished
 	queue_free()
+
+func apply_level_scale(scale_value: float):
+	$AnimatedSprite2D.scale = Vector2(scale_value, scale_value)
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	print("entrou:", body.name)
+	if body.is_in_group("player"):
+		body.take_damage(damage)
+		print("hit player")

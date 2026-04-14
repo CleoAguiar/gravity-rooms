@@ -41,10 +41,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vv5ke"]
-radius = 9.0
-height = 20.0
+radius = 7.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_upho4"]
+radius = 7.0
+height = 18.0
 
 [node name="EnemyBase" type="CharacterBody2D" unique_id=232797007]
+z_index = 10
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_vv5ke")
@@ -54,7 +59,17 @@ sprite_frames = SubResource("SpriteFrames_upho4")
 animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=900277678]
-position = Vector2(1, -15)
 shape = SubResource("CapsuleShape2D_vv5ke")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1791961908]
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=829135670]
+z_index = 10
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1564372713]
+shape = SubResource("CapsuleShape2D_upho4")
+debug_color = Color(0.61913407, 0, 0.02442751, 0.41960785)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

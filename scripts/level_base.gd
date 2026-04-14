@@ -21,6 +21,7 @@ var door_instance: Area2D
 func _ready():
 	validate_scenes()
 	spawn_all()
+	apply_scale_to_entities()
 
 # Validação (evita erro silencioso)
 func validate_scenes():
@@ -32,6 +33,13 @@ func spawn_all():
 	spawn_player()
 	spawn_key()
 	spawn_door()
+	
+func apply_scale_to_entities():
+	for child in $World/Entities.get_children():
+		if child.has_method("apply_level_scale"):
+			child.apply_level_scale(level_scale)
+		else:
+			child.scale = Vector2(level_scale, level_scale)
 
 func reset_level():
 	if player_instance:

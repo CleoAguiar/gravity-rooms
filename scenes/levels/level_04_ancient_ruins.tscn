@@ -26,4 +26,3 @@ position = Vector2(434, -247)
 position = Vector2(192, 234)
 
 [node name="KingPig" parent="World/Entities" parent_id_path=PackedInt32Array(1502951389) index="0" unique_id=232797007 instance=ExtResource("2_rd3c5")]
-position = Vector2(340, 243)

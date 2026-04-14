@@ -269,7 +269,10 @@ animations = [{
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=333716882]
 sprite_frames = SubResource("SpriteFrames_5pk2h")
 animation = &"run"
-frame_progress = 0.30656856
+frame_progress = 0.15009037
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=900277678]
-position = Vector2(0, 3)
+position = Vector2(0, 2)
+
+[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(829135670) index="0" unique_id=1564372713]
+position = Vector2(0, 2)

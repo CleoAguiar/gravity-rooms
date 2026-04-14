@@ -14,6 +14,9 @@ enum PlayerState {
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 @onready var land_sound: AudioStreamPlayer2D = $LandSound
 
+var LIFE := 3
+var IS_DEAD := false
+
 # Movimento
 const SPEED = 200.0
 const ACCELERATION = 900.0
@@ -310,6 +313,33 @@ func play_jump_effect(is_double_jump: bool):
 
 	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.1)
 
+# =========================
+# DAMAGE
+# =========================
+
+func take_damage(amount: int):
+	if IS_DEAD:
+		return
+		
+	LIFE -= amount
+	print("Player tomou dano! Vida:", LIFE)
+
+	if LIFE <= 0:
+		die()
+
+# =========================
+# DIE
+# =========================
+
+func die():
+	IS_DEAD = true
+	print("Player morreu")
+	
+	# Aqui você pode:
+	# - tocar animação
+	# - reiniciar fase
+	# - desabilitar movimento
+	
 # =========================
 # LOOP
 # =========================

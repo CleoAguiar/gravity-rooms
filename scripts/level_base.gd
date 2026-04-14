@@ -8,9 +8,9 @@ signal level_completed
 @export var camera_zoom: Vector2 = Vector2(0.8, 0.8)
 @export var level_scale: float = 1.0
 
-@onready var player_spawn: Marker2D = $Spawns/PlayerSpawn
-@onready var key_spawn: Marker2D = $Spawns/KeySpawn
-@onready var door_spawn: Marker2D = $Spawns/DoorSpawn
+@onready var player_spawn: Marker2D = $World/Spawns/PlayerSpawn
+@onready var key_spawn: Marker2D = $World/Spawns/KeySpawn
+@onready var door_spawn: Marker2D = $World/Spawns/DoorSpawn
 @onready var ui_label: Label = $UI/Label
 @onready var tile_map: TileMap = $World/TileMap
 

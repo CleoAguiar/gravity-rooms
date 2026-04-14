@@ -533,9 +533,6 @@ sources/1 = SubResource("TileSetAtlasSource_imdmy")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbhrr"]
 texture = ExtResource("2_lj3nu")
-4:4/size_in_atlas = Vector2i(8, 1)
-4:4/0 = 0
-4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63.656517, -7.614416, 63.656517, -7.614415, 63.656517, -7.7159405, 63.961098, 3.2488174, -63.554993, 3.8579712)
 2:8/size_in_atlas = Vector2i(2, 2)
 2:8/0 = 0
 4:6/size_in_atlas = Vector2i(3, 3)
@@ -544,11 +541,25 @@ texture = ExtResource("2_lj3nu")
 8:6/0 = 0
 2:6/size_in_atlas = Vector2i(2, 2)
 2:6/0 = 0
-2:2/size_in_atlas = Vector2i(2, 4)
+6:5/0 = 0
+7:5/0 = 0
+7:6/0 = 0
+2:2/size_in_atlas = Vector2i(2, 1)
 2:2/0 = 0
-4:2/size_in_atlas = Vector2i(8, 1)
+2:3/size_in_atlas = Vector2i(2, 3)
+2:3/0 = 0
+4:4/size_in_atlas = Vector2i(6, 1)
+4:4/0 = 0
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-47.482704, -7.733926, 48, -8, 48.02228, 3.5971737, -47.662563, 3.956892)
+4:2/size_in_atlas = Vector2i(6, 1)
 4:2/0 = 0
-4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64.044785, -7.3285065, 63.40752, -7.965769, 64.044785, -1.9117851, -64.044785, -2.2304153)
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-47.61548, -7.8174677, 47.717007, -7.614416, 47.61548, -3.6549196, -47.61548, -3.3503437)
+10:4/size_in_atlas = Vector2i(2, 1)
+10:4/0 = 0
+10:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.2879925, -7.5540657, 15.46785, -7.5540657, 16.007427, 2.8777409, -15.467851, 2.6978817)
+10:2/size_in_atlas = Vector2i(2, 1)
+10:2/0 = 0
+10:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.467851, -7.733925, 16.007427, -7.913783, 15.989077, -4.126213, -15.4733, -4.1262136)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_rclii")
@@ -1036,7 +1047,7 @@ tile_set = SubResource("TileSet_lbhrr")
 z_index = 1
 use_parent_material = true
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAD2////AQAEAAQAAAAJAP//AQAEAAQAAAD9//v/AQAEAAQAAAACAPv/AQAEAAQAAAA=")
+tile_map_data = PackedByteArray("AAD9//v/AQAEAAQAAAACAPv/AQAEAAQAAAAIAP//AQAEAAQAAAD3////AQAEAAQAAAA=")
 tile_set = SubResource("TileSet_lbhrr")
 
 [node name="Spawns" type="Node2D" parent="." unique_id=1211489300]

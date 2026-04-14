@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cdem4ljj3tsnc"]
+[gd_scene format=4 uid="uid://cdem4ljj3tsnc"]
 
 [ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/level_base.tscn" id="1_olvil"]
 
@@ -7,10 +7,13 @@ camera_zoom = Vector2(0.9, 0.9)
 level_scale = 2.0
 
 [node name="Instruction" parent="World/TileMap" parent_id_path=PackedInt32Array(626809967) index="3" unique_id=700359313]
-tile_map_data = PackedByteArray(0, 0, 242, 255, 5, 0, 1, 0, 2, 0, 0, 0, 0, 0, 243, 255, 5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 243, 255, 6, 0, 0, 0, 4, 0, 2, 0, 0, 0, 244, 255, 5, 0, 1, 0, 3, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray("AADy/wUAAQACAAAAAADz/wUAAQAAAAAAAADz/wYAAAAEAAIAAAD0/wUAAQADAAAAAAA=")
+
+[node name="Decorations" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="0" unique_id=1821240989]
+tile_map_data = PackedByteArray("AAD//wQAAQAEAAYAAAAJAAQAAQAIAAYAAAAAAAIAAQACAAgAAAD2/wAAAQACAAYAAAAKAAAAAQACAAYAAAD2//7/AQACAAMAAAAKAP7/AQACAAMAAAD2//z/AQACAAIAAAAKAPz/AQACAAIAAAAAAP7/AQACAAIAAAAAAAAAAQACAAMAAAA=")
 
 [node name="Platform" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="1" unique_id=1747881900]
-tile_map_data = PackedByteArray(0, 0, 244, 255, 250, 255, 1, 0, 4, 0, 2, 0, 0, 0, 2, 0, 252, 255, 1, 0, 4, 0, 4, 0, 0, 0, 10, 0, 0, 0, 1, 0, 4, 0, 4, 0, 0, 0, 250, 255, 5, 0, 1, 0, 4, 0, 4, 0, 0, 0)
+tile_map_data = PackedByteArray("AAACAPz/AQAEAAQAAAAKAAAAAQAEAAQAAAD6/wUAAQAEAAQAAADx//r/AQAKAAIAAAA=")
 
 [node name="PlayerSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="0" unique_id=504255497]
 position = Vector2(-356, 200)

@@ -9,6 +9,7 @@ var levels = [
 	"res://scenes/levels/level_01_castle_dungeons.tscn",
 	"res://scenes/levels/level_02_castle_dungeons.tscn",
 	"res://scenes/levels/level_03_castle_dungeons.tscn",
+	"res://scenes/levels/level_04_ancient_ruins.tscn",
 	"res://scenes/levels/level_end.tscn"
 ]
 

@@ -9,8 +9,9 @@ Codename: *Gravity Rooms*
 
 ## 🧠 Overview
 
-**Gravity Rooms** is a 2D platformer focused on puzzle-solving through a **gravity inversion mechanic**.
-Players must manipulate gravity to navigate challenging rooms, solve spatial puzzles, and reach the exit.
+**Gravity Rooms** is a 2D puzzle-platformer where players manipulate **gravity** to escape a series of interconnected rooms within a mysterious medieval castle.
+
+Each room is a self-contained challenge that requires the player to rethink space, positioning, and movement.
 
 The game emphasizes:
 
@@ -22,8 +23,8 @@ The game emphasizes:
 
 ## 🎯 Player Objective
 
-* Navigate through levels
-* Collect keys (or activate mechanisms)
+* Navigate through rooms
+* Collect keys or activate mechanisms
 * Reach the exit door
 
 ---
@@ -32,13 +33,13 @@ The game emphasizes:
 
 ### 🔄 Gravity Inversion
 
-The player can invert gravity at will (future limitations may apply).
+The player can invert gravity at will.
 
 **Gameplay impact:**
 
-* Instantly redefines spatial navigation
+* Transforms floors into ceilings instantly
+* Redefines navigation and spatial reasoning
 * Enables creative puzzle-solving
-* Expands vertical level design possibilities
 
 ---
 
@@ -46,52 +47,52 @@ The player can invert gravity at will (future limitations may apply).
 
 * Horizontal movement
 * Jump
-* Static platforms
-* Moving platforms
-* Hazard zones (lava, spikes)
+* Static platforms (stone, wood)
+* Moving platforms (chains, lifts, mechanisms)
+* Hazard zones (spikes, molten metal, traps)
 * Special surfaces (ice)
-* Altered physics areas (low/no gravity zones)
+* Magical zones with altered physics
 
 ---
 
 ## 🧱 Level Structure
 
-The game contains **30 levels**, divided into:
+The game contains **30 rooms**, divided into:
 
 * 🟢 Easy (01–10) → Learning
 * 🟡 Normal (11–20) → Combination
 * 🔴 Hard (21–30) → Mastery
 
-Each level follows the naming convention:
+Each room follows the naming convention:
 
-```id="lvlname01"
+```txt
 level_<NN>_<biome>_<difficulty>
 ```
 
 Example:
 
-```id="lvlname02"
-level_01_neon_lab_easy
+```txt
+level_01_castle_dungeons_easy
 ```
 
 ---
 
 ## 🌍 Biomes
 
-Each biome introduces or expands gameplay mechanics:
+Each biome introduces or evolves gameplay mechanics while maintaining a cohesive medieval fantasy theme.
 
-| Biome             | Purpose                                  |
-| ----------------- | ---------------------------------------- |
-| neon_lab          | Tutorial and core mechanics introduction |
-| ruins_ancient     | Spatial awareness                        |
-| crystal_caves     | Visual guidance and direction            |
-| lava_forge        | Timing and pressure                      |
-| sky_ruins         | Gravity mastery                          |
-| deep_forest       | Exploration and navigation               |
-| ice_temple        | Precision and control                    |
-| abandoned_station | Altered physics                          |
-| shadow_realm      | Memory and perception                    |
-| gravity_core      | Final challenge                          |
+| Biome            | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| castle_dungeons  | Core mechanics introduction (tutorial)   |
+| ancient_ruins    | Spatial awareness and hazards            |
+| crystal_mines    | Visual guidance and verticality          |
+| molten_forge     | Timing and pressure                      |
+| royal_towers     | Gravity mastery and vertical traversal   |
+| enchanted_forest | Exploration and navigation               |
+| frozen_keep      | Precision and movement control           |
+| abandoned_castle | Altered physics through magical elements |
+| shadow_catacombs | Memory and perception challenges         |
+| king_core        | Final challenge combining all mechanics  |
 
 ---
 
@@ -108,35 +109,38 @@ Each biome introduces or expands gameplay mechanics:
 
 ## 🕹️ Gameplay Loop
 
-1. Player enters level
-2. Observes environment
-3. Experiments with mechanics
-4. Solves puzzle
-5. Reaches exit
-6. Progresses to next level
+1. Player enters a room
+2. Observes the environment
+3. Experiments with gravity
+4. Solves the puzzle
+5. Reaches the exit
+6. Progresses to the next room
 
 ---
 
 ## 🎨 Art Direction
 
-* Style: minimalistic and functional
-* Clarity over realism
-* Color used to communicate mechanics
-* Each biome has a distinct identity
+* Style: medieval cartoon (inspired by Kings and Pigs assets)
+* Bright colors and readable silhouettes
+* Strong contrast between interactive elements
+* Visual clarity prioritized over detail
+
+**Design goal:**
+Gameplay readability always comes before visual complexity.
 
 ---
 
 ## 🔊 Audio
 
-* Action feedback (jump, gravity switch)
-* Interaction cues
-* Ambient music per biome
+* Feedback sounds (jump, gravity switch, interactions)
+* Environmental ambience per biome
+* Light, thematic medieval background music
 
 ---
 
 ## 🧪 Playtesting
 
-Each level should be validated based on:
+Each room should be validated based on:
 
 * Completion time (30–90 seconds)
 * Clarity of objective
@@ -172,25 +176,25 @@ Development strategy:
 ## 🚀 Unique Selling Points
 
 * Strong core mechanic (gravity inversion)
-* Short, intelligent levels
-* Clean learning curve
-* Controlled scope (ideal for indie development)
+* Compact, puzzle-focused rooms
+* Clear and satisfying learning curve
+* Cohesive visual identity (medieval fantasy)
 
 ---
 
 ## 📌 Next Steps
 
-* Finalize neon_lab biome (first 3 levels)
+* Finalize **castle_dungeons** (first 3 rooms)
 * Improve gravity feedback (visual/audio)
-* Start internal playtesting
-* Refine movement feel
+* Begin structured playtesting
+* Refine movement and controls
 
 ---
 
 ## 🧠 Designer Notes
 
-* If a level needs explanation, it is poorly designed
-* If the player does not use gravity, the level failed
+* If a room needs explanation, it is poorly designed
+* If gravity is not required, the room failed
 * Simple > complex
 * Clarity > difficulty
 

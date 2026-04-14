@@ -6,9 +6,9 @@ extends Node2D
 @onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
 
 var levels = [
-	"res://scenes/levels/level_01_neon_lab.tscn",
-	"res://scenes/levels/level_02_neon_lab.tscn",
-	"res://scenes/levels/level_03_neon_lab.tscn",
+	"res://scenes/levels/level_01_castle_dungeons.tscn",
+	"res://scenes/levels/level_02_castle_dungeons.tscn",
+	"res://scenes/levels/level_03_castle_dungeons.tscn",
 	"res://scenes/levels/level_end.tscn"
 ]
 

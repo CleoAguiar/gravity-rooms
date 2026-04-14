@@ -10,13 +10,16 @@ level_scale = 2.0
 tile_map_data = PackedByteArray("AADy/wUAAQACAAAAAADz/wUAAQAAAAAAAADz/wYAAAAEAAIAAAD0/wUAAQADAAAAAAA=")
 
 [node name="Decorations" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="0" unique_id=1821240989]
-tile_map_data = PackedByteArray("AAD//wQAAQAEAAYAAAAJAAQAAQAIAAYAAAAAAAIAAQACAAgAAAD2/wAAAQACAAYAAAAKAAAAAQACAAYAAAD2//7/AQACAAMAAAAKAP7/AQACAAMAAAD2//z/AQACAAIAAAAKAPz/AQACAAIAAAAAAP7/AQACAAIAAAAAAAAAAQACAAMAAAA=")
+tile_map_data = PackedByteArray("AAD//wQAAQAEAAYAAAAJAAQAAQAIAAYAAAAAAAIAAQACAAgAAAAAAP7/AQACAAIAAAAAAAAAAQACAAMAAAD2/wAAAQACAAYAAAAKAAAAAQACAAYAAAD2//7/AQACAAMAAAAKAP7/AQACAAMAAAD2//z/AQACAAIAAAAKAPz/AQACAAIAAAA=")
 
 [node name="Platform" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="1" unique_id=1747881900]
-tile_map_data = PackedByteArray("AAACAPz/AQAEAAQAAAAKAAAAAQAEAAQAAAD6/wUAAQAEAAQAAADx//r/AQAKAAIAAAA=")
+tile_map_data = PackedByteArray("AAACAPz/AQAEAAQAAAD6/wUAAQAEAAQAAADy//r/AQAKAAIAAAAKAAIAAQAEAAQAAAA=")
 
 [node name="PlayerSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="0" unique_id=504255497]
 position = Vector2(-356, 200)
 
 [node name="KeySpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="1" unique_id=502101508]
-position = Vector2(-457, -221)
+position = Vector2(-436, -223)
+
+[node name="DoorSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
+position = Vector2(159, 234)

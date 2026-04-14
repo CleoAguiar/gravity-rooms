@@ -9,11 +9,17 @@ level_scale = 2.0
 [node name="Decorations" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="0" unique_id=1821240989]
 tile_map_data = PackedByteArray("AAD//wQAAQAEAAYAAAAJAAQAAQAIAAYAAAD2//v/AQACAAIAAAAKAPv/AQACAAIAAAD2////AQACAAYAAAAKAP//AQACAAYAAAD2//3/AQACAAMAAAAKAP3/AQACAAMAAAA=")
 
+[node name="Platform" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="1" unique_id=1747881900]
+tile_map_data = PackedByteArray("AAD9//v/AQAEAAQAAAACAPv/AQAEAAQAAAAIAAEAAQAEAAQAAAD3/wEAAQAEAAQAAAA=")
+
 [node name="PlayerSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="0" unique_id=504255497]
-position = Vector2(-323, 181)
+position = Vector2(-323, 205)
 
 [node name="KeySpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="1" unique_id=502101508]
 position = Vector2(0, -190)
+
+[node name="DoorSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
+position = Vector2(162, 234)
 
 [node name="Label" parent="UI" parent_id_path=PackedInt32Array(40086895) index="0" unique_id=110154881]
 offset_left = -26.5

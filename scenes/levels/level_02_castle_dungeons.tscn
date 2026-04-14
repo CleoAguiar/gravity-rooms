@@ -8,10 +8,13 @@ level_scale = 2.0
 metadata/_edit_horizontal_guides_ = [-115.0]
 
 [node name="Decorations" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="0" unique_id=1821240989]
-tile_map_data = PackedByteArray("AAD//wQAAQAEAAYAAAAJAAQAAQAIAAYAAAAAAAIAAQACAAgAAAD2//v/AQACAAIAAAD2////AQACAAYAAAD2//3/AQACAAMAAAAAAAAAAQACAAMAAAAAAP7/AQACAAIAAAA=")
+tile_map_data = PackedByteArray("AAD//wQAAQAEAAYAAAAJAAQAAQAIAAYAAAD2//v/AQACAAIAAAAAAAIAAQACAAgAAAD2////AQACAAYAAAD2//3/AQACAAMAAAAAAP7/AQACAAIAAAAAAAAAAQACAAMAAAA=")
 
 [node name="Platform" parent="World/Props" parent_id_path=PackedInt32Array(33017630) index="1" unique_id=1747881900]
 tile_map_data = PackedByteArray("AAD2/wMAAQAEAAQAAAAJAPz/AQAEAAQAAAA=")
 
 [node name="KeySpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="1" unique_id=502101508]
 position = Vector2(307, -150)
+
+[node name="DoorSpawn" parent="Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
+position = Vector2(159, 234)

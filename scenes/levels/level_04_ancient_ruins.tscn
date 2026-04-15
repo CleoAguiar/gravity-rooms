@@ -24,3 +24,9 @@ position = Vector2(434, -247)
 
 [node name="DoorSpawn" parent="World/Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
 position = Vector2(192, 234)
+
+[node name="EnemySpawn2" parent="World/Spawns/EnemySpawns" parent_id_path=PackedInt32Array(1734076180) index="1" unique_id=916160292]
+position = Vector2(403, -138)
+
+[node name="Entities" parent="World" parent_id_path=PackedInt32Array(1961563888) index="3" unique_id=1648878027]
+position = Vector2(387, 233)

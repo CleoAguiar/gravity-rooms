@@ -130,8 +130,7 @@ func spawn_enemy(pos: Vector2):
 	enemy_instance.global_position = pos
 	
 	apply_level_scale(enemy_instance)
-	entities.add_child(enemy_instance)
-
+	
 	# Injeta dependências
 	enemy_instance.setup(self, player_instance)
 

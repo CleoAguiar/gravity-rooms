@@ -167,7 +167,7 @@ func die():
 	queue_free()
 
 func apply_level_scale(scale_value: float):
-	$AnimatedSprite2D.scale = Vector2(scale_value, scale_value)
+	sprite.scale = Vector2(scale_value, scale_value)
 
 func setup(_level, _player):
 	level = _level

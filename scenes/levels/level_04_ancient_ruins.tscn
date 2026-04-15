@@ -1,10 +1,11 @@
 [gd_scene format=4 uid="uid://dnbj0npnvsch5"]
 
 [ext_resource type="PackedScene" uid="uid://eoj5358toi7b" path="res://scenes/levels/level_base.tscn" id="1_3jl51"]
+[ext_resource type="PackedScene" uid="uid://3fbtspka0g4b" path="res://entities/king_pig.tscn" id="2_rd3c5"]
 
 [node name="Level04_AncientRuins" unique_id=1222328850 instance=ExtResource("1_3jl51")]
-camera_zoom = Vector2(0.8, 0.8)
 level_scale = 2.0
+enemy_scene = ExtResource("2_rd3c5")
 metadata/_edit_vertical_guides_ = [-482.0]
 
 [node name="Ground" parent="World/TileMap" parent_id_path=PackedInt32Array(626809967) index="1" unique_id=574162068]

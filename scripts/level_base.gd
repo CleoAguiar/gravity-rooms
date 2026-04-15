@@ -12,7 +12,9 @@ signal level_completed
 @onready var player_spawn: Marker2D = $World/Spawns/PlayerSpawn
 @onready var key_spawn: Marker2D = $World/Spawns/KeySpawn
 @onready var door_spawn: Marker2D = $World/Spawns/DoorSpawn
+@onready var enemy_spawns: Node2D = $World/Spawns/EnemySpawns
 @onready var entities: Node2D = $World/Entities
+
 @onready var ui_label: Label = $UI/Label
 @onready var tile_map: TileMap = $World/TileMap
 
@@ -35,6 +37,7 @@ func spawn_all():
 	spawn_player()
 	spawn_key()
 	spawn_door()
+	spawn_enemies()
 	
 func apply_scale_to_entities():
 	for child in $World/Entities.get_children():
@@ -133,6 +136,14 @@ func spawn_enemy(pos: Vector2):
 	# Injeta dependências
 	enemy.setup(self, player_instance)
 
+func spawn_enemies():
+	if enemy_scene == null:
+		return
+	
+	for spawn_point in enemy_spawns.get_children():
+		if spawn_point is Marker2D:
+			spawn_enemy(spawn_point.global_position)
+	
 # EVENTO
 func _on_key_collected():
 	get_tree().call_group("doors", "open_door")

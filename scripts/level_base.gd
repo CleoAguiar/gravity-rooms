@@ -21,6 +21,10 @@ signal level_completed
 var player_instance: CharacterBody2D
 var key_instance: Area2D
 var door_instance: Area2D
+var enemy_instance: CharacterBody2D
+
+var original_shape_size
+var original_shape_radius
 
 func _ready():
 	validate_scenes()
@@ -40,7 +44,7 @@ func spawn_all():
 	spawn_enemies()
 	
 func apply_scale_to_entities():
-	for child in $World/Entities.get_children():
+	for child in entities.get_children():
 		if child.has_method("apply_level_scale"):
 			child.apply_level_scale(level_scale)
 		else:
@@ -108,8 +112,11 @@ func setup_camera(player: Node2D):
 
 # SCALE TO ENTITIES
 func apply_level_scale(node: Node2D):
-	node.scale = Vector2(level_scale, level_scale)
-
+	if node.is_in_group("enemy"):
+		if node.has_method("apply_level_scale"):
+			node.apply_level_scale(level_scale)
+	else:
+		node.scale = Vector2(level_scale, level_scale)
 # KEY
 func spawn_key():
 	key_instance = key_scene.instantiate()
@@ -128,13 +135,16 @@ func spawn_door():
 
 # ENEMY
 func spawn_enemy(pos: Vector2):
-	var enemy = enemy_scene.instantiate()
-	entities.add_child(enemy)
-
-	enemy.global_position = pos
+	enemy_instance = enemy_scene.instantiate()
+	
+	entities.add_child(enemy_instance)
+	enemy_instance.global_position = pos
+	
+	apply_level_scale(enemy_instance)
+	entities.add_child(enemy_instance)
 
 	# Injeta dependências
-	enemy.setup(self, player_instance)
+	enemy_instance.setup(self, player_instance)
 
 func spawn_enemies():
 	if enemy_scene == null:

@@ -29,6 +29,7 @@ window/size/viewport_height=768
 doors=""
 player=""
 tutorial_instruction=""
+enemy=""
 
 [input]
 

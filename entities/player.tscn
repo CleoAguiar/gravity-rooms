@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ihbjgy6vlneh" path="res://assets/sprites/01-King Human/Idle (78x58).png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bhxlftsqqhjvs" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://ch31jecw12bb8" path="res://assets/sprites/01-King Human/Fall (78x58).png" id="2_qly61"]
+[ext_resource type="Texture2D" uid="uid://cqf8nqf2hprjh" path="res://assets/sprites/01-King Human/Dead (78x58).png" id="2_x08pd"]
 [ext_resource type="Texture2D" uid="uid://pnex3lm3toy" path="res://assets/sprites/01-King Human/Jump (78x58).png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://douk4x5epffkd" path="res://assets/sprites/01-King Human/Hit (78x58).png" id="3_tjdhl"]
 [ext_resource type="Texture2D" uid="uid://b6x2k4nclrqcv" path="res://assets/sprites/01-King Human/Run (78x58).png" id="4_qlg0r"]
@@ -10,6 +11,22 @@
 [ext_resource type="AudioStream" uid="uid://dtshsln3llq1b" path="res://audio/wrong error.wav" id="7_6nm46"]
 [ext_resource type="AudioStream" uid="uid://d30igwghcbr18" path="res://audio/landsound.wav" id="8_i623q"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="9_ef06p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdgjc"]
+atlas = ExtResource("2_x08pd")
+region = Rect2(0, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0i8f"]
+atlas = ExtResource("2_x08pd")
+region = Rect2(78, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i614"]
+atlas = ExtResource("2_x08pd")
+region = Rect2(156, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprnr"]
+atlas = ExtResource("2_x08pd")
+region = Rect2(234, 0, 78, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsoyl"]
 atlas = ExtResource("2_qly61")
@@ -105,6 +122,23 @@ region = Rect2(546, 0, 78, 58)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jej6c"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdgjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0i8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0i614")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprnr")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qsoyl")
@@ -220,7 +254,9 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=621072167 groups=["player"]]
 position = Vector2(8, -15)
 sprite_frames = SubResource("SpriteFrames_jej6c")
-animation = &"hit"
+animation = &"dead"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1200064436]
 position = Vector2(1, -14)

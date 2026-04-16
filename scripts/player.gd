@@ -5,7 +5,8 @@ signal gravity_used
 enum PlayerState {
 	GROUND,
 	AIR,
-	HIT
+	HIT,
+	DEAD
 }
 
 @onready var animated_sprite = $AnimatedSprite2D
@@ -111,6 +112,8 @@ func change_state(new_state: PlayerState):
 			enter_air()
 		PlayerState.HIT:
 			enter_hit()
+		PlayerState.DEAD:
+			enter_dead()
 
 # =========================
 # GROUND
@@ -174,6 +177,14 @@ func hit_state(delta):
 	
 	# continua aplicando gravidade
 	velocity.y += GRAVITY_FORCE * gravity_direction * delta
+
+# =========================
+# DEAD
+# =========================
+
+func enter_dead():
+	velocity = Vector2.ZERO
+	animated_sprite.play("dead")
 
 # =========================
 # GRAVIDADE
@@ -349,11 +360,9 @@ func take_damage(amount: int, from_position: Vector2):
 	velocity.x = dir * 400
 	velocity.y = -180 * gravity_direction
 	
-	#var direction = (global_position - from_position).normalized()
-	#velocity = direction * 200
 	change_state(PlayerState.HIT)
 	
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(1.5).timeout
 	
 	is_invulnerable = false
 	
@@ -370,14 +379,19 @@ func take_damage(amount: int, from_position: Vector2):
 # =========================
 
 func die():
+	if is_dead:
+		return
+	
 	is_dead = true
 	print("Player morreu")
 	
-	# Aqui você pode:
-	# - tocar animação
-	# - reiniciar fase
-	# - desabilitar movimento
+	change_state(PlayerState.DEAD)
 	
+	await animated_sprite.animation_finished
+	await get_tree().create_timer(1.0).timeout
+	
+	get_tree().reload_current_scene()
+
 # =========================
 # LOOP
 # =========================
@@ -413,6 +427,8 @@ func _physics_process(delta):
 			air_state(delta)
 		PlayerState.HIT:
 			hit_state(delta)
+		PlayerState.DEAD:
+			return
 
 	move_and_slide()
 

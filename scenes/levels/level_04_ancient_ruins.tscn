@@ -30,3 +30,6 @@ position = Vector2(312, 225)
 
 [node name="Entities" parent="World" parent_id_path=PackedInt32Array(1961563888) index="3" unique_id=1648878027]
 position = Vector2(387, 233)
+
+[node name="Label" parent="UI" parent_id_path=PackedInt32Array(40086895) index="0" unique_id=110154881]
+visible = false

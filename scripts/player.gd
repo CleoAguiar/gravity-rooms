@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal gravity_used
+signal died
 
 enum PlayerState {
 	GROUND,
@@ -16,7 +17,7 @@ enum PlayerState {
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 @onready var land_sound: AudioStreamPlayer2D = $LandSound
 
-var life := 3
+var life := 1
 var is_dead := false
 var is_invulnerable := false
 
@@ -390,7 +391,8 @@ func die():
 	await animated_sprite.animation_finished
 	await get_tree().create_timer(1.0).timeout
 	
-	get_tree().reload_current_scene()
+	emit_signal("died")
+	#get_tree().reload_current_scene()
 
 # =========================
 # LOOP

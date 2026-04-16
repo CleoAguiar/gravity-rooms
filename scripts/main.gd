@@ -1,9 +1,10 @@
 extends Node2D
 
 @onready var level_container: Node = $World/LevelContainer
-@onready var fade: ColorRect = $FadeLayer/ColorRect
 @onready var tutorial_manager: Node = $TutorialManager
 @onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
+@onready var fade: ColorRect = $UI/FadeLayer/ColorRect
+@onready var game_over: Control = $UI/GameOver
 
 var levels = [
 	"res://scenes/levels/level_01_castle_dungeons.tscn",
@@ -47,7 +48,7 @@ func setup_level(level):
 	var player = level.get_node_or_null("Player")
 	
 	# HUD (energia)
-	var hud = get_node("HUD")
+	var hud = get_node_or_null("UI/HUD")
 	if hud and player:
 		hud.set_player(player)
 	
@@ -55,6 +56,11 @@ func setup_level(level):
 	if player and tutorial_manager:
 		if player.has_signal("gravity_used"):
 			player.connect("gravity_used", Callable(tutorial_manager, "on_gravity_used"))
+	
+	# GAME OVER
+	if player and player.has_signal("died"):
+		if not player.died.is_connected(_on_player_died):
+			player.died.connect(_on_player_died)
 	
 	# TUTORIAL
 	if tutorial_manager and level.has_method("get_instructions"):
@@ -92,6 +98,8 @@ func load_level(scene_path: String):
 	# Segurança extra antes de usar
 	if is_instance_valid(level_instance):
 		setup_level(level_instance)
+	
+	#call_deferred("_connect_player")
 
 func next_level():
 	current_level_index += 1
@@ -122,17 +130,29 @@ func fade_in():
 func _ready():
 	load_level(levels[current_level_index])
 
+	# conecta no player
+	#call_deferred("_connect_player")
+
 	# fade inicial
 	var tween = create_tween()
 	tween.tween_property(fade, "modulate:a", 0.0, 0.3)
 
+	# som ambiente
 	ambient_sound.volume_db = -5
 	ambient_sound.play()
 
 	var tween_audio = create_tween()
 	tween_audio.tween_property(ambient_sound, "volume_db", -15, 2.0)
 
-
 func _process(_delta):
 	if Input.is_action_just_pressed("reset"):
 		reset_level()
+
+#func _connect_player():
+	#var player = get_tree().get_first_node_in_group("player")
+	#if player:
+		#player.died.connect(_on_player_died)
+
+func _on_player_died():
+	print("Player morreu - mostrando Game Over")
+	game_over.show_game_over()

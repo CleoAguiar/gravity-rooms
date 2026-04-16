@@ -9,13 +9,14 @@ enum PlayerState {
 	HIT,
 	DEAD
 }
-
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var jump_particles: GPUParticles2D = $JumpEffect
 @onready var camera = get_viewport().get_camera_2d()
 @onready var gravity_sound: AudioStreamPlayer2D = $GravitySound
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 @onready var land_sound: AudioStreamPlayer2D = $LandSound
+@onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var hurtbox: CollisionShape2D = $Hurtbox/CollisionShape2D
 
 var life := 1
 var is_dead := false
@@ -251,8 +252,12 @@ func move_horizontal(delta):
 
 	if direction > 0:
 		animated_sprite.flip_h = false
+		collision.position.x = 1
+		hurtbox.position.x = 1
 	elif direction < 0:
 		animated_sprite.flip_h = true
+		collision.position.x = 15
+		hurtbox.position.x = 15
 
 # =========================
 # PULO

@@ -24,20 +24,16 @@ var loading := false
 func reset_level():
 	if loading:
 		return
-
+	
 	var tween = create_tween()
 	tween.tween_property(fade, "self_modulate:a", 1.0, 0.15)
+	
 	await tween.finished
-
 	await get_tree().process_frame
-
-	if current_level_node and current_level_node.has_method("reset_level"):
-		current_level_node.reset_level()
-
-	await get_tree().create_timer(0.2).timeout
-
-	load_level(current_level_path)
-
+	await load_level(current_level_path)
+	await fade_in()
+	
+	loading = false
 
 func setup_level(level):
 	# Garante que o level ainda existe

@@ -168,6 +168,13 @@ func enter_hit():
 	await get_tree().create_timer(0.5).timeout
 	change_state(PlayerState.GROUND)
 
+func hit_state(delta):
+	# desacelera o knockback
+	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	
+	# continua aplicando gravidade
+	velocity.y += GRAVITY_FORCE * gravity_direction * delta
+
 # =========================
 # GRAVIDADE
 # =========================
@@ -338,13 +345,22 @@ func take_damage(amount: int, from_position: Vector2):
 	life -= amount
 	print("Player tomou dano! Vida:", life)
 	
-	var direction = (global_position - from_position).normalized()
-	velocity = direction * 200
+	var dir = sign(global_position.x - from_position.x)
+	velocity.x = dir * 400
+	velocity.y = -180 * gravity_direction
 	
-	#animated_sprite.play("hit")
+	#var direction = (global_position - from_position).normalized()
+	#velocity = direction * 200
 	change_state(PlayerState.HIT)
-	await get_tree().create_timer(0.5).timeout
+	
+	await get_tree().create_timer(0.3).timeout
+	
 	is_invulnerable = false
+	
+	if is_on_floor():
+		change_state(PlayerState.GROUND)
+	else:
+		change_state(PlayerState.AIR)
 	
 	if life <= 0:
 		die()
@@ -395,6 +411,8 @@ func _physics_process(delta):
 			ground_state(delta)
 		PlayerState.AIR:
 			air_state(delta)
+		PlayerState.HIT:
+			hit_state(delta)
 
 	move_and_slide()
 

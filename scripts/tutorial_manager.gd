@@ -68,7 +68,7 @@ func start_hint():
 		tween.parallel().tween_property(i, "position:y", original_y[i] - 5, 0.4)
 		tween.parallel().tween_property(i, "position:y", original_y[i], 0.4)
 
-func start_tutorial(instructions: Array):
+func start_tutorial(_instructions: Array):
 	# reset geral
 	time = 0.0
 	blinking = false

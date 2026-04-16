@@ -18,7 +18,7 @@ enum PlayerState {
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var hurtbox: CollisionShape2D = $Hurtbox/CollisionShape2D
 
-var life := 1
+var life := 3
 var is_dead := false
 var is_invulnerable := false
 
@@ -171,7 +171,11 @@ func air_state(delta):
 func enter_hit():
 	animated_sprite.play("hit")
 	await get_tree().create_timer(0.5).timeout
-	change_state(PlayerState.GROUND)
+	
+	if is_on_floor():
+		change_state(PlayerState.GROUND)
+	else:
+		change_state(PlayerState.AIR)
 
 func hit_state(delta):
 	# desacelera o knockback
@@ -357,10 +361,10 @@ func play_jump_effect(is_double_jump: bool):
 func take_damage(amount: int, from_position: Vector2):
 	if is_dead or is_invulnerable:
 		return
-	
+		
 	is_invulnerable = true
 	life -= amount
-	print("Player tomou dano! Vida:", life)
+	print("Player tomou dano! Vida:", life)	
 	
 	var dir = sign(global_position.x - from_position.x)
 	velocity.x = dir * 400
@@ -368,17 +372,19 @@ func take_damage(amount: int, from_position: Vector2):
 	
 	change_state(PlayerState.HIT)
 	
-	await get_tree().create_timer(1.5).timeout
-	
-	is_invulnerable = false
-	
-	if is_on_floor():
-		change_state(PlayerState.GROUND)
-	else:
-		change_state(PlayerState.AIR)
-	
-	if life <= 0:
+	if life > 0:
+		await get_tree().create_timer(1.5).timeout
+		is_invulnerable = false
+		if is_on_floor():
+			change_state(PlayerState.GROUND)
+		else:
+			change_state(PlayerState.AIR)
+	else: 
+		await get_tree().create_timer(0.5).timeout
 		die()
+		return
+	
+
 
 # =========================
 # DIE
@@ -389,7 +395,6 @@ func die():
 		return
 	
 	is_dead = true
-	print("Player morreu")
 	
 	change_state(PlayerState.DEAD)
 	
@@ -397,14 +402,12 @@ func die():
 	await get_tree().create_timer(1.0).timeout
 	
 	emit_signal("died")
-	#get_tree().reload_current_scene()
 
 # =========================
 # LOOP
 # =========================
 
 func _physics_process(delta):
-
 	if Input.is_action_just_pressed("gravity"):
 		toggle_gravity()
 

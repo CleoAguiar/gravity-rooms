@@ -110,7 +110,7 @@ func change_state(new_state: PlayerState):
 		PlayerState.AIR:
 			enter_air()
 		PlayerState.HIT:
-			pass
+			enter_hit()
 
 # =========================
 # GROUND

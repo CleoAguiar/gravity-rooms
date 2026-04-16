@@ -31,7 +31,7 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 # =========================
 # REFERÊNCIAS
 # =========================
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # =========================
 # VARIÁVEIS
@@ -155,6 +155,7 @@ func take_damage(amount):
 	
 	health -= amount
 	change_state(State.HIT)
+	sprite.play("hit")
 	
 	if health <= 0:
 		die()
@@ -176,5 +177,5 @@ func setup(_level, _player):
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	print("entrou:", body.name)
 	if body.is_in_group("player"):
-		body.take_damage(damage)
+		body.take_damage(damage, position)
 		print("hit player")

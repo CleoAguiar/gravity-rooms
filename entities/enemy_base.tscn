@@ -45,7 +45,7 @@ radius = 7.0
 height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_upho4"]
-radius = 7.0
+radius = 8.0
 height = 18.0
 
 [node name="EnemyBase" type="CharacterBody2D" unique_id=232797007 groups=["enemy"]]
@@ -63,7 +63,7 @@ shape = SubResource("CapsuleShape2D_vv5ke")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1791961908]
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=829135670]
+[node name="Hitbox" type="Area2D" parent="." unique_id=829135670 groups=["enemy_hitbox"]]
 z_index = 10
 collision_layer = 4
 collision_mask = 2

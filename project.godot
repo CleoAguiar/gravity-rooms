@@ -30,6 +30,7 @@ doors=""
 player=""
 tutorial_instruction=""
 enemy=""
+enemy_hitbox=""
 
 [input]
 

@@ -4,7 +4,8 @@ signal gravity_used
 
 enum PlayerState {
 	GROUND,
-	AIR
+	AIR,
+	HIT
 }
 
 @onready var animated_sprite = $AnimatedSprite2D
@@ -14,8 +15,9 @@ enum PlayerState {
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 @onready var land_sound: AudioStreamPlayer2D = $LandSound
 
-var LIFE := 3
-var IS_DEAD := false
+var life := 3
+var is_dead := false
+var is_invulnerable := false
 
 # Movimento
 const SPEED = 200.0
@@ -107,6 +109,8 @@ func change_state(new_state: PlayerState):
 			enter_ground()
 		PlayerState.AIR:
 			enter_air()
+		PlayerState.HIT:
+			pass
 
 # =========================
 # GROUND
@@ -154,6 +158,15 @@ func air_state(delta):
 
 	if is_on_floor():
 		change_state(PlayerState.GROUND)
+
+# =========================
+# HIT
+# =========================
+
+func enter_hit():
+	animated_sprite.play("hit")
+	await get_tree().create_timer(0.5).timeout
+	change_state(PlayerState.GROUND)
 
 # =========================
 # GRAVIDADE
@@ -317,14 +330,23 @@ func play_jump_effect(is_double_jump: bool):
 # DAMAGE
 # =========================
 
-func take_damage(amount: int):
-	if IS_DEAD:
+func take_damage(amount: int, from_position: Vector2):
+	if is_dead or is_invulnerable:
 		return
-		
-	LIFE -= amount
-	print("Player tomou dano! Vida:", LIFE)
-
-	if LIFE <= 0:
+	
+	is_invulnerable = true
+	life -= amount
+	print("Player tomou dano! Vida:", life)
+	
+	var direction = (global_position - from_position).normalized()
+	velocity = direction * 200
+	
+	#animated_sprite.play("hit")
+	change_state(PlayerState.HIT)
+	await get_tree().create_timer(0.5).timeout
+	is_invulnerable = false
+	
+	if life <= 0:
 		die()
 
 # =========================
@@ -332,7 +354,7 @@ func take_damage(amount: int):
 # =========================
 
 func die():
-	IS_DEAD = true
+	is_dead = true
 	print("Player morreu")
 	
 	# Aqui você pode:
@@ -382,3 +404,10 @@ func _physics_process(delta):
 		play_land_feedback()
 
 	was_on_floor = is_on_floor_now
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy_hitbox"):
+		var enemy = area.get_parent()
+		
+		if enemy != null and enemy.get("damage") != null:
+			take_damage(enemy.damage, enemy.global_position)

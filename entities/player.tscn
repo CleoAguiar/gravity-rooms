@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bhxlftsqqhjvs" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://ch31jecw12bb8" path="res://assets/sprites/01-King Human/Fall (78x58).png" id="2_qly61"]
 [ext_resource type="Texture2D" uid="uid://pnex3lm3toy" path="res://assets/sprites/01-King Human/Jump (78x58).png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://douk4x5epffkd" path="res://assets/sprites/01-King Human/Hit (78x58).png" id="3_tjdhl"]
 [ext_resource type="Texture2D" uid="uid://b6x2k4nclrqcv" path="res://assets/sprites/01-King Human/Run (78x58).png" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://j2x1ygdrxwov" path="res://audio/gravity_inverter.ogg" id="6_qsoyl"]
 [ext_resource type="AudioStream" uid="uid://dtshsln3llq1b" path="res://audio/wrong error.wav" id="7_6nm46"]
@@ -13,6 +14,14 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_qsoyl"]
 atlas = ExtResource("2_qly61")
 region = Rect2(0, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x08pd"]
+atlas = ExtResource("3_tjdhl")
+region = Rect2(0, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dchgp"]
+atlas = ExtResource("3_tjdhl")
+region = Rect2(78, 0, 78, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
@@ -106,6 +115,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_x08pd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dchgp")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_g2els")
 }, {
 "duration": 1.0,
@@ -188,6 +208,9 @@ particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 gravity = Vector3(0, 98, 0)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tjdhl"]
+height = 28.0
+
 [node name="Player" type="CharacterBody2D" unique_id=347957538]
 z_index = 10
 collision_layer = 2
@@ -197,7 +220,7 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=621072167 groups=["player"]]
 position = Vector2(8, -15)
 sprite_frames = SubResource("SpriteFrames_jej6c")
-animation = &"fall"
+animation = &"hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1200064436]
 position = Vector2(1, -14)
@@ -224,3 +247,16 @@ stream = ExtResource("8_i623q")
 volume_db = -10.0
 
 [node name="Camera" parent="." unique_id=1040924369 instance=ExtResource("9_ef06p")]
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1929093745]
+z_index = 10
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=113720586]
+position = Vector2(1, -14)
+shape = SubResource("CapsuleShape2D_tjdhl")
+debug_color = Color(0.61913407, 0, 0.02442751, 0.41960785)
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hitbox_area_entered"]

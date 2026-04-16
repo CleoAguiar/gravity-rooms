@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://3fbtspka0g4b" path="res://entities/king_pig.tscn" id="2_rd3c5"]
 
 [node name="Level04_AncientRuins" unique_id=1222328850 instance=ExtResource("1_3jl51")]
-level_scale = 2.0
+level_scale = 3.0
 enemy_scene = ExtResource("2_rd3c5")
 
 [node name="Ground" parent="World/TileMap" parent_id_path=PackedInt32Array(626809967) index="1" unique_id=574162068]
@@ -25,8 +25,8 @@ position = Vector2(434, -247)
 [node name="DoorSpawn" parent="World/Spawns" parent_id_path=PackedInt32Array(1211489300) index="2" unique_id=962418352]
 position = Vector2(192, 234)
 
-[node name="EnemySpawn2" parent="World/Spawns/EnemySpawns" parent_id_path=PackedInt32Array(1734076180) index="1" unique_id=916160292]
-position = Vector2(403, -138)
+[node name="EnemySpawn1" parent="World/Spawns/EnemySpawns" parent_id_path=PackedInt32Array(1734076180) index="0" unique_id=777318811]
+position = Vector2(312, 225)
 
 [node name="Entities" parent="World" parent_id_path=PackedInt32Array(1961563888) index="3" unique_id=1648878027]
 position = Vector2(387, 233)

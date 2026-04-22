@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://1v2icav1tv3o"]
 
 [ext_resource type="Script" uid="uid://d0p2lxhvcxu62" path="res://scripts/main.gd" id="1_0tnpc"]
-[ext_resource type="Script" uid="uid://ciofrv14j3st6" path="res://scripts/tutorial_manager.gd" id="2_vtaks"]
-[ext_resource type="Script" uid="uid://baqqxx84jprk8" path="res://scripts/hud.gd" id="4_tefeu"]
-[ext_resource type="PackedScene" uid="uid://ckiek2kclw5i0" path="res://scenes/game_over.tscn" id="6_tefeu"]
+[ext_resource type="Script" path="res://scripts/tutorial_manager.gd" id="2_vtaks"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="4_tefeu"]
+[ext_resource type="PackedScene" uid="uid://ckiek2kclw5i0" path="res://scenes/end_screen.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="12_dinhu"]
 [ext_resource type="AudioStream" uid="uid://b6qebuk3qgao8" path="res://audio/crimsonstatbgm1.ogg" id="13_kvuet"]
 
@@ -44,4 +44,4 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="GameOver" parent="UI" unique_id=1604715039 instance=ExtResource("6_tefeu")]
+[node name="EndScreen" parent="UI" unique_id=1604715039 instance=ExtResource("6_tefeu")]

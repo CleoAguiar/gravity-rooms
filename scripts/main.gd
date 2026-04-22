@@ -4,7 +4,7 @@ extends Node2D
 @onready var tutorial_manager: Node = $TutorialManager
 @onready var ambient_sound: AudioStreamPlayer = $Audio/Ambient/AmbientSound
 @onready var fade: ColorRect = $UI/FadeLayer/ColorRect
-@onready var game_over: Control = $UI/GameOver
+@onready var end_screen: Control = $UI/EndScreen
 
 var levels = [
 	"res://scenes/levels/level_01_castle_dungeons.tscn",
@@ -151,4 +151,4 @@ func _process(_delta):
 
 func _on_player_died():
 	print("Player morreu - mostrando Game Over")
-	game_over.show_game_over()
+	end_screen.show_game_over()

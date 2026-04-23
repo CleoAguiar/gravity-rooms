@@ -31,6 +31,9 @@ func show_victory():
 	button.text = "Continue"
 	#show()
 
+func go_to_credits():
+	get_tree().change_scene_to_file("res://scenes/credits.tscn")
+
 func _ready():
 	visible = false
 
@@ -42,4 +45,6 @@ func _on_button_pressed():
 		EndType.GAME_OVER:
 			get_tree().current_scene.reset_level()
 		EndType.VICTORY:
-			get_tree().current_scene.reset_game()
+			#get_tree().current_scene.reset_game()
+			go_to_credits()
+			

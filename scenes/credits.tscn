@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dtcweac7wda0q"]
+
+[ext_resource type="Script" uid="uid://bc4u3bryre0qh" path="res://scripts/credits.gd" id="1_0bpdh"]
+
+[node name="Credits" type="Control" unique_id=1779378381]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0bpdh")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=485612893]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 984.0
+offset_bottom = 728.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6666667)
+
+[node name="Label" type="Label" parent="." unique_id=1089568293]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 244.0
+offset_top = 190.0
+offset_right = 745.0
+offset_bottom = 547.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "Congratulations!
+
+Game by Cleo Aguiar
+
+Thanks for playing!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=1570076417]
+wait_time = 5.0
+one_shot = true

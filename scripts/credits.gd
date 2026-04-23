@@ -2,8 +2,9 @@ extends Control
 
 @onready var timer: Timer = $Timer
 
-func _ready() -> void:
+func _ready():
 	get_tree().paused = false
+	await get_tree().process_frame
 	timer.start()
 
 func _on_timer_timeout():

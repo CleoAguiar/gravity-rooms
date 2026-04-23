@@ -10,8 +10,7 @@ var levels = [
 	"res://scenes/levels/level_01_castle_dungeons.tscn",
 	"res://scenes/levels/level_02_castle_dungeons.tscn",
 	"res://scenes/levels/level_03_castle_dungeons.tscn",
-	"res://scenes/levels/level_04_ancient_ruins.tscn",
-	"res://scenes/levels/level_end.tscn"
+	"res://scenes/levels/level_04_ancient_ruins.tscn"
 ]
 
 var current_level_index := 0
@@ -20,6 +19,9 @@ var current_level_node: Node = null
 var current_level_path := ""
 var loading := false
 
+func reset_game():
+	current_level_index = 0
+	load_level(levels[current_level_index])
 
 func reset_level():
 	if loading:
@@ -100,10 +102,8 @@ func load_level(scene_path: String):
 func next_level():
 	current_level_index += 1
 	
-	# DEBUG
-	#print("Indo para índice:", current_level_index)
 	if current_level_index >= levels.size():
-		print("Fim do jogo!")
+		end_screen.show_victory()
 		return
 	
 	load_level(levels[current_level_index])

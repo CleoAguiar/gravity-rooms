@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://d0p2lxhvcxu62" path="res://scripts/game.gd" id="1_p57ef"]
 [ext_resource type="Script" path="res://scripts/tutorial_manager.gd" id="2_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://b6qebuk3qgao8" path="res://audio/crimsonstatbgm1.ogg" id="3_gee14"]
-[ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/hud.tscn" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://co7mqx4m5yfd2" path="res://scenes/ui/hud.tscn" id="4_0tnpc"]
 [ext_resource type="Script" path="res://scripts/hud.gd" id="5_vtaks"]
-[ext_resource type="PackedScene" uid="uid://ckiek2kclw5i0" path="res://scenes/end_screen.tscn" id="6_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://ckiek2kclw5i0" path="res://scenes/ui/end_screen.tscn" id="6_kvpfn"]
 
 [node name="Game" type="Node2D" unique_id=583389761]
 script = ExtResource("1_p57ef")

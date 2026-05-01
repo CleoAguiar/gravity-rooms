@@ -63,6 +63,56 @@ var did_double_jump := false
 func _ready():
 	change_state(PlayerState.GROUND)
 
+func _physics_process(delta):
+	if Input.is_action_just_pressed("gravity"):
+		toggle_gravity()
+
+	# Energia
+	if gravity_active:
+		gravity_energy -= drain_rate * delta
+
+		if gravity_energy <= 0:
+			gravity_energy = 0
+			deactivate_gravity()
+	else:
+		if is_on_floor():
+			gravity_energy += recharge_rate * delta
+		else:
+			gravity_energy += air_recharge_rate * delta
+
+	gravity_energy = clamp(gravity_energy, 0, max_gravity_energy)
+
+	# Acumula queda
+	if not is_on_floor():
+		fall_speed += abs(velocity.y) * delta
+
+	match state:
+		PlayerState.GROUND:
+			ground_state(delta)
+		PlayerState.AIR:
+			air_state(delta)
+		PlayerState.HIT:
+			hit_state(delta)
+		PlayerState.DEAD:
+			return
+
+	move_and_slide()
+
+	var is_on_floor_now = is_on_floor()
+
+	if not was_on_floor and is_on_floor_now:
+		play_land_feedback()
+
+	was_on_floor = is_on_floor_now
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy_hitbox"):
+		var enemy = area.get_parent()
+		
+		if enemy != null and enemy.get("damage") != null:
+			take_damage(enemy.damage, enemy.global_position)
+
+
 # =========================
 # RESET PLAYER
 # =========================
@@ -409,52 +459,3 @@ func die():
 # =========================
 # LOOP
 # =========================
-
-func _physics_process(delta):
-	if Input.is_action_just_pressed("gravity"):
-		toggle_gravity()
-
-	# Energia
-	if gravity_active:
-		gravity_energy -= drain_rate * delta
-
-		if gravity_energy <= 0:
-			gravity_energy = 0
-			deactivate_gravity()
-	else:
-		if is_on_floor():
-			gravity_energy += recharge_rate * delta
-		else:
-			gravity_energy += air_recharge_rate * delta
-
-	gravity_energy = clamp(gravity_energy, 0, max_gravity_energy)
-
-	# Acumula queda
-	if not is_on_floor():
-		fall_speed += abs(velocity.y) * delta
-
-	match state:
-		PlayerState.GROUND:
-			ground_state(delta)
-		PlayerState.AIR:
-			air_state(delta)
-		PlayerState.HIT:
-			hit_state(delta)
-		PlayerState.DEAD:
-			return
-
-	move_and_slide()
-
-	var is_on_floor_now = is_on_floor()
-
-	if not was_on_floor and is_on_floor_now:
-		play_land_feedback()
-
-	was_on_floor = is_on_floor_now
-
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group("enemy_hitbox"):
-		var enemy = area.get_parent()
-		
-		if enemy != null and enemy.get("damage") != null:
-			take_damage(enemy.damage, enemy.global_position)

@@ -333,7 +333,7 @@ func move_horizontal(delta):
 		animated_sprite.flip_h = true
 		collision.position.x = 15
 		hurtbox.position.x = 15
-		attack_area.position.x = -54
+		attack_area.position.x = -36
 
 # =========================
 # PULO

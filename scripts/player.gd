@@ -370,8 +370,6 @@ func attack():
 	is_attacking = true
 	animated_sprite.play("attack")
 	attack_area.monitoring = true
-	print("Monitoring:", attack_area.monitoring)
-	
 
 # =========================
 # IMPACTOS

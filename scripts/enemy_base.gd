@@ -150,12 +150,11 @@ func flip():
 # DANO
 # =========================
 func take_damage(amount):
-	#print("Tomou dano: ", amount)
-	
 	if current_state == State.DEAD:
 		return
 	
 	health -= amount
+	print("Tomou dano, health: ", health)
 	change_state(State.HIT)
 	sprite.play("hit")
 	

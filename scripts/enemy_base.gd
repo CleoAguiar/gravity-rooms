@@ -46,7 +46,7 @@ var level
 # =========================
 func _ready():
 	change_state(State.IDLE)
-	print("mask:", $Hitbox.collision_mask)
+	#print("mask:", $Hitbox.collision_mask)
 
 # =========================
 # LOOP
@@ -150,6 +150,8 @@ func flip():
 # DANO
 # =========================
 func take_damage(amount):
+	#print("Tomou dano: ", amount)
+	
 	if current_state == State.DEAD:
 		return
 	
@@ -174,8 +176,8 @@ func setup(_level, _player):
 	level = _level
 	player = _player
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	print("entrou:", body.name)
+func _on_hitbox_body_entered(body: Node2D):
+	#print("entrou:", body.name)
 	if body.is_in_group("player"):
 		body.take_damage(damage, position)
-		print("hit player")
+		#print("hit player")

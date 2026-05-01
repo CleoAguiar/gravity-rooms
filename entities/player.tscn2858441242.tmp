@@ -272,9 +272,6 @@ gravity = Vector3(0, 98, 0)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tjdhl"]
 height = 28.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dchgp"]
-size = Vector2(14, 23)
-
 [node name="Player" type="CharacterBody2D" unique_id=347957538]
 z_index = 10
 collision_layer = 2
@@ -324,15 +321,9 @@ shape = SubResource("CapsuleShape2D_tjdhl")
 debug_color = Color(0.61913407, 0, 0.02442751, 0.41960785)
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=1242398463]
-collision_layer = 2
-collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=791965336]
-position = Vector2(38, -12.5)
-shape = SubResource("RectangleShape2D_dchgp")
-debug_color = Color(0, 0.21325663, 0, 0.41960785)
+debug_color = Color(0, 0.6, 0, 0.41960785)
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
-[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

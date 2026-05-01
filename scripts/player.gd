@@ -17,10 +17,12 @@ enum PlayerState {
 @onready var land_sound: AudioStreamPlayer2D = $LandSound
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var hurtbox: CollisionShape2D = $Hurtbox/CollisionShape2D
+@onready var attack_area: Area2D = $AttackArea
 
 var life := 3
 var is_dead := false
 var is_invulnerable := false
+var is_attacking = false
 
 # Movimento
 const SPEED = 200.0
@@ -105,13 +107,33 @@ func _physics_process(delta):
 
 	was_on_floor = is_on_floor_now
 
-func _on_hurtbox_area_entered(area: Area2D) -> void:
+func _on_hurtbox_area_entered(area: Area2D):
 	if area.is_in_group("enemy_hitbox"):
 		var enemy = area.get_parent()
 		
 		if enemy != null and enemy.get("damage") != null:
 			take_damage(enemy.damage, enemy.global_position)
 
+func _on_attack_area_area_entered(area):
+	#print("ACERTOU:", area.name)
+	var enemy = area.get_parent()
+	
+	if enemy.has_method("take_damage"):
+		enemy.take_damage(1)
+		#print("hit enemy")
+
+
+# REMOVER
+#func _on_attack_area_body_entered(body: Node2D):
+	#print("ACERTOU:", body.name)
+	#if body.has_method("take_damage"):
+		#body.take_damage(1)
+		#print("hit enemy")
+
+func _on_animated_sprite_2d_animation_finished():
+	if animated_sprite.animation == "attack":
+		is_attacking = false
+		attack_area.monitoring = false
 
 # =========================
 # RESET PLAYER
@@ -178,7 +200,10 @@ func enter_ground():
 
 func ground_state(delta):
 	move_horizontal(delta)
-
+	
+	if is_attacking:
+		return
+	
 	if abs(velocity.x) > 5:
 		animated_sprite.play("run")
 	else:
@@ -188,9 +213,9 @@ func ground_state(delta):
 		jump()
 		return
 	
-	if Input.is_action_just_pressed("attack"):
-		animated_sprite.play("attack")
-
+	if Input.is_action_just_pressed("attack") and not is_attacking:
+		attack()
+	
 	if not is_on_floor():
 		change_state(PlayerState.AIR)
 
@@ -344,6 +369,17 @@ func jump():
 	change_state(PlayerState.AIR)
 
 # =========================
+# ATTACK
+# =========================
+
+func attack():
+	is_attacking = true
+	animated_sprite.play("attack")
+	attack_area.monitoring = true
+	print("Monitoring:", attack_area.monitoring)
+	
+
+# =========================
 # IMPACTOS
 # =========================
 
@@ -417,7 +453,7 @@ func take_damage(amount: int, from_position: Vector2):
 		
 	is_invulnerable = true
 	life -= amount
-	print("Player tomou dano! Vida:", life)	
+	#print("Player tomou dano! Vida:", life)	
 	
 	var dir = sign(global_position.x - from_position.x)
 	velocity.x = dir * 400
@@ -455,7 +491,3 @@ func die():
 	await get_tree().create_timer(1.0).timeout
 	
 	emit_signal("died")
-
-# =========================
-# LOOP
-# =========================

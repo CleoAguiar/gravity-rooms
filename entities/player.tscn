@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ihbjgy6vlneh" path="res://assets/sprites/01-King Human/Idle (78x58).png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bhxlftsqqhjvs" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://dlsrb1pf7wn0p" path="res://assets/sprites/01-King Human/Attack (78x58).png" id="2_dchgp"]
 [ext_resource type="Texture2D" uid="uid://ch31jecw12bb8" path="res://assets/sprites/01-King Human/Fall (78x58).png" id="2_qly61"]
 [ext_resource type="Texture2D" uid="uid://cqf8nqf2hprjh" path="res://assets/sprites/01-King Human/Dead (78x58).png" id="2_x08pd"]
 [ext_resource type="Texture2D" uid="uid://pnex3lm3toy" path="res://assets/sprites/01-King Human/Jump (78x58).png" id="3_dqkch"]
@@ -11,6 +12,18 @@
 [ext_resource type="AudioStream" uid="uid://dtshsln3llq1b" path="res://audio/wrong error.wav" id="7_6nm46"]
 [ext_resource type="AudioStream" uid="uid://d30igwghcbr18" path="res://audio/landsound.wav" id="8_i623q"]
 [ext_resource type="PackedScene" uid="uid://dpgrkvhso2xn" path="res://entities/camera.tscn" id="9_ef06p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rie4"]
+atlas = ExtResource("2_dchgp")
+region = Rect2(0, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp3pk"]
+atlas = ExtResource("2_dchgp")
+region = Rect2(78, 0, 78, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgp7q"]
+atlas = ExtResource("2_dchgp")
+region = Rect2(156, 0, 78, 58)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kdgjc"]
 atlas = ExtResource("2_x08pd")
@@ -122,6 +135,20 @@ region = Rect2(546, 0, 78, 58)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jej6c"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rie4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp3pk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgp7q")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kdgjc")
@@ -254,7 +281,7 @@ script = ExtResource("1_g2els")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=621072167 groups=["player"]]
 position = Vector2(8, -15)
 sprite_frames = SubResource("SpriteFrames_jej6c")
-animation = &"idle"
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1200064436]
 visible = false

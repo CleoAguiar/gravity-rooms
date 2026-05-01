@@ -137,6 +137,9 @@ func ground_state(delta):
 	if Input.is_action_just_pressed("jump"):
 		jump()
 		return
+	
+	if Input.is_action_just_pressed("attack"):
+		animated_sprite.play("attack")
 
 	if not is_on_floor():
 		change_state(PlayerState.AIR)

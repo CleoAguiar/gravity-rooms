@@ -122,14 +122,6 @@ func _on_attack_area_area_entered(area):
 		enemy.take_damage(1)
 		#print("hit enemy")
 
-
-# REMOVER
-#func _on_attack_area_body_entered(body: Node2D):
-	#print("ACERTOU:", body.name)
-	#if body.has_method("take_damage"):
-		#body.take_damage(1)
-		#print("hit enemy")
-
 func _on_animated_sprite_2d_animation_finished():
 	if animated_sprite.animation == "attack":
 		is_attacking = false
@@ -336,10 +328,12 @@ func move_horizontal(delta):
 		animated_sprite.flip_h = false
 		collision.position.x = 1
 		hurtbox.position.x = 1
+		attack_area.position.x = 0
 	elif direction < 0:
 		animated_sprite.flip_h = true
 		collision.position.x = 15
 		hurtbox.position.x = 15
+		attack_area.position.x = -54
 
 # =========================
 # PULO

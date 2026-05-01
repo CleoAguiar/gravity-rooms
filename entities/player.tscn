@@ -328,7 +328,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=791965336]
-position = Vector2(38, -12.5)
+position = Vector2(35, -12.5)
 shape = SubResource("RectangleShape2D_dchgp")
 debug_color = Color(0, 0.21325663, 0, 0.41960785)
 

@@ -168,7 +168,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xpnf1")
 }],
-"loop": true,
+"loop": false,
 "name": &"dead",
 "speed": 5.0
 }, {
@@ -269,8 +269,6 @@ metadata/_edit_horizontal_guides_ = [11.0]
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=333716882]
 sprite_frames = SubResource("SpriteFrames_5pk2h")
-animation = &"run"
-frame_progress = 0.15009037
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=900277678]
 position = Vector2(0, 2)

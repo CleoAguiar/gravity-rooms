@@ -32,6 +32,7 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 # REFERÊNCIAS
 # =========================
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: Area2D = $Hitbox
 
 # =========================
 # VARIÁVEIS
@@ -56,6 +57,18 @@ func _physics_process(delta):
 	update_state()
 	handle_state(delta)
 	move_and_slide()
+
+# =========================
+# HITBOX
+# =========================
+
+func _on_hitbox_body_entered(body: Node2D):
+	if current_state == State.DEAD:
+		return
+	
+	if body.is_in_group("player"):
+		body.take_damage(damage, position)
+
 
 # =========================
 # GRAVIDADE
@@ -154,7 +167,6 @@ func take_damage(amount):
 		return
 	
 	health -= amount
-	print("Tomou dano, health: ", health)
 	change_state(State.HIT)
 	sprite.play("hit")
 	
@@ -165,6 +177,9 @@ func die():
 	change_state(State.DEAD)
 	velocity = Vector2.ZERO
 	
+	hitbox.monitoring = false
+	hitbox.set_deferred("monitoring", false)
+	
 	await sprite.animation_finished
 	queue_free()
 
@@ -174,9 +189,3 @@ func apply_level_scale(scale_value: float):
 func setup(_level, _player):
 	level = _level
 	player = _player
-
-func _on_hitbox_body_entered(body: Node2D):
-	#print("entrou:", body.name)
-	if body.is_in_group("player"):
-		body.take_damage(damage, position)
-		#print("hit player")

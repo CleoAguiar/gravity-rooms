@@ -38,6 +38,7 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 # VARIÁVEIS
 # =========================
 var health := max_health
+var is_hit := false
 var direction := -1
 var player = null
 var level
@@ -163,15 +164,21 @@ func flip():
 # DANO
 # =========================
 func take_damage(amount):
-	if current_state == State.DEAD:
+	if current_state == State.DEAD or is_hit:
 		return
 	
+	is_hit = true
 	health -= amount
 	change_state(State.HIT)
-	sprite.play("hit")
 	
 	if health <= 0:
 		die()
+		return
+	
+	await sprite.animation_finished
+	is_hit = false
+	change_state(State.IDLE)
+
 
 func die():
 	change_state(State.DEAD)

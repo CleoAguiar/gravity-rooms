@@ -49,6 +49,7 @@ var air_recharge_rate := 0.0
 
 # Estado
 var state: PlayerState = PlayerState.GROUND
+var state_locked := false
 
 # Timers
 var coyote_timer := 0.0
@@ -191,6 +192,9 @@ func enter_ground():
 	coyote_timer = COYOTE_TIME
 
 func ground_state(delta):
+	if state_locked:
+		return
+	
 	move_horizontal(delta)
 	
 	if is_attacking:
@@ -219,6 +223,9 @@ func enter_air():
 	animated_sprite.play("jump")
 
 func air_state(delta):
+	if state_locked:
+		return
+	
 	move_horizontal(delta)
 
 	velocity.y += GRAVITY_FORCE * gravity_direction * delta
@@ -253,6 +260,9 @@ func hit_state(delta):
 	
 	# continua aplicando gravidade
 	velocity.y += GRAVITY_FORCE * gravity_direction * delta
+	
+	if velocity.y * gravity_direction <0:
+		velocity.y *= 0.98
 
 # =========================
 # DEAD
@@ -367,9 +377,27 @@ func jump():
 # =========================
 
 func attack():
+	if state_locked:
+		return
+	
+	state_locked = true
 	is_attacking = true
+	
 	animated_sprite.play("attack")
 	attack_area.monitoring = true
+	
+	await animated_sprite.animation_finished
+	
+	is_attacking = false
+	attack_area.monitoring = false
+	
+	state_locked = false
+	
+	if is_on_floor():
+		change_state(PlayerState.GROUND)
+	else:
+		change_state(PlayerState.AIR)
+
 
 # =========================
 # IMPACTOS
@@ -442,10 +470,13 @@ func play_jump_effect(is_double_jump: bool):
 func take_damage(amount: int, from_position: Vector2):
 	if is_dead or is_invulnerable:
 		return
-		
+	
+	is_attacking = false
+	attack_area.monitoring = false
+	
+	state_locked = true
 	is_invulnerable = true
 	life -= amount
-	#print("Player tomou dano! Vida:", life)	
 	
 	var dir = sign(global_position.x - from_position.x)
 	velocity.x = dir * 400
@@ -453,18 +484,22 @@ func take_damage(amount: int, from_position: Vector2):
 	
 	change_state(PlayerState.HIT)
 	
-	if life > 0:
-		await get_tree().create_timer(1.5).timeout
-		is_invulnerable = false
-		if is_on_floor():
-			change_state(PlayerState.GROUND)
-		else:
-			change_state(PlayerState.AIR)
-	else: 
+	if life <=0:
 		await get_tree().create_timer(0.5).timeout
 		die()
 		return
 	
+	await  get_tree().create_timer(0.2).timeout
+	
+	state_locked = false
+	
+	if is_on_floor():
+		change_state(PlayerState.GROUND)
+	else:
+		change_state(PlayerState.AIR)
+	
+	await  get_tree().create_timer(1.0).timeout
+	is_invulnerable = false
 
 
 # =========================

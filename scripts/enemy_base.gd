@@ -3,7 +3,7 @@ extends CharacterBody2D
 # =========================
 # ESTADOS (SEUS STATES)
 # =========================
-enum State {
+enum EnemyState {
 	IDLE,
 	RUN,
 	JUMP,
@@ -14,7 +14,7 @@ enum State {
 	DEAD
 }
 
-var current_state = State.IDLE
+var current_state = EnemyState.IDLE
 
 # =========================
 # CONFIG
@@ -33,6 +33,7 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 # =========================
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Area2D = $Hitbox
+@onready var hurtbox: Area2D = $Hurtbox
 @onready var wall_raycast: RayCast2D = $WallRayCast
 @onready var floor_raycast: RayCast2D = $FloorRayCast
 
@@ -41,6 +42,7 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 # =========================
 var health := max_health
 var is_hit := false
+var dead = false
 var direction := -1
 var player = null
 var level
@@ -49,7 +51,7 @@ var level
 # READY
 # =========================
 func _ready():
-	change_state(State.IDLE)
+	change_state(EnemyState.IDLE)
 	#print("mask:", $Hitbox.collision_mask)
 
 # =========================
@@ -66,12 +68,22 @@ func _physics_process(delta):
 # =========================
 
 func _on_hitbox_body_entered(body: Node2D):
-	if current_state == State.DEAD:
+	if current_state == EnemyState.DEAD:
 		return
 	
 	if body.is_in_group("player"):
 		body.take_damage(damage, position)
 
+# =========================
+# HURTBOX
+# =========================
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if dead:
+		return
+	
+	if area.is_in_group("player_attack"):
+		take_damage(1)
 
 # =========================
 # GRAVIDADE
@@ -94,55 +106,55 @@ func change_state(new_state):
 	current_state = new_state
 	
 	match current_state:
-		State.IDLE:
+		EnemyState.IDLE:
 			sprite.play("idle")
 		
-		State.RUN:
+		EnemyState.RUN:
 			sprite.play("run")
 		
-		State.JUMP:
+		EnemyState.JUMP:
 			sprite.play("jump")
 		
-		State.FALL:
+		EnemyState.FALL:
 			sprite.play("fall")
 		
-		State.GROUND:
+		EnemyState.GROUND:
 			sprite.play("ground") # opcional
 		
-		State.ATTACK:
+		EnemyState.ATTACK:
 			sprite.play("attack")
 		
-		State.HIT:
+		EnemyState.HIT:
 			sprite.play("hit")
 		
-		State.DEAD:
+		EnemyState.DEAD:
 			sprite.play("dead")
 
 # =========================
 # ATUALIZAÇÃO AUTOMÁTICA
 # =========================
 func update_state():
-	if current_state == State.DEAD or current_state == State.HIT:
+	if current_state == EnemyState.DEAD or current_state == EnemyState.HIT:
 		return
 	
 	if not is_on_floor():
 		if velocity.y * gravity_direction < 0:
-			change_state(State.JUMP)
+			change_state(EnemyState.JUMP)
 		else:
-			change_state(State.FALL)
+			change_state(EnemyState.FALL)
 		return
 	
 	# Está no chão
 	if abs(velocity.x) > 5:
-		change_state(State.RUN)
+		change_state(EnemyState.RUN)
 	else:
-		change_state(State.IDLE)
+		change_state(EnemyState.IDLE)
 
 # =========================
 # COMPORTAMENTO
 # =========================
 func handle_state(_delta):
-	if current_state == State.DEAD:
+	if current_state == EnemyState.DEAD:
 		velocity = Vector2.ZERO
 		return
 	
@@ -166,15 +178,31 @@ func turn():
 	hitbox.position *= -1
 
 # =========================
+# ATTACK
+# =========================
+func attack():
+	current_state = EnemyState.ATTACK
+	
+	sprite.play("attack")
+	
+	hitbox.monitoring = true
+	
+	await sprite.animation_finished
+	
+	hitbox.monitoring = false
+	
+	current_state = EnemyState.IDLE
+
+# =========================
 # DANO
 # =========================
 func take_damage(amount):
-	if current_state == State.DEAD or is_hit:
+	if current_state == EnemyState.DEAD or is_hit:
 		return
 	
 	is_hit = true
 	health -= amount
-	change_state(State.HIT)
+	change_state(EnemyState.HIT)
 	
 	if health <= 0:
 		die()
@@ -182,11 +210,11 @@ func take_damage(amount):
 	
 	await sprite.animation_finished
 	is_hit = false
-	change_state(State.IDLE)
+	change_state(EnemyState.IDLE)
 
 
 func die():
-	change_state(State.DEAD)
+	change_state(EnemyState.DEAD)
 	velocity = Vector2.ZERO
 	
 	hitbox.monitoring = false

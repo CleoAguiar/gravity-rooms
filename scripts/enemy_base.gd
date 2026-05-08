@@ -33,6 +33,8 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 # =========================
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox: Area2D = $Hitbox
+@onready var wall_raycast: RayCast2D = $WallRayCast
+@onready var floor_raycast: RayCast2D = $FloorRayCast
 
 # =========================
 # VARIÁVEIS
@@ -150,15 +152,18 @@ func handle_state(_delta):
 func patrol():
 	velocity.x = direction * speed
 	
-	if is_on_wall():
-		direction *= -1
-		flip()
+	if wall_raycast.is_colliding() or not floor_raycast.is_colliding():
+		turn()
 
 # =========================
-# UTIL
+# TURN
 # =========================
-func flip():
+func turn():
+	direction *= -1
+	
 	sprite.flip_h = direction > 0
+	wall_raycast.target_position.x *= -1
+	hitbox.position *= -1
 
 # =========================
 # DANO

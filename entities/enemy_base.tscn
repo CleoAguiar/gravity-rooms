@@ -61,7 +61,11 @@ animation = &"attack"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=900277678]
 shape = SubResource("CapsuleShape2D_vv5ke")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1791961908]
+[node name="FloorRayCast" type="RayCast2D" parent="." unique_id=1791961908]
+target_position = Vector2(0, 15)
+
+[node name="WallRayCast" type="RayCast2D" parent="." unique_id=278830393]
+target_position = Vector2(-15, 0)
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=829135670 groups=["enemy_hitbox"]]
 z_index = 10

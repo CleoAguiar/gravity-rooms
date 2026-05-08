@@ -127,6 +127,14 @@ func _on_animated_sprite_2d_animation_finished():
 	if animated_sprite.animation == "attack":
 		is_attacking = false
 		attack_area.monitoring = false
+	
+	if animated_sprite.animation == "hit":
+		state_locked = false
+	
+		if is_on_floor():
+			change_state(PlayerState.GROUND)
+		else:
+			change_state(PlayerState.AIR)
 
 # =========================
 # RESET PLAYER
@@ -247,12 +255,6 @@ func air_state(delta):
 
 func enter_hit():
 	animated_sprite.play("hit")
-	await get_tree().create_timer(0.5).timeout
-	
-	if is_on_floor():
-		change_state(PlayerState.GROUND)
-	else:
-		change_state(PlayerState.AIR)
 
 func hit_state(delta):
 	# desacelera o knockback
@@ -260,9 +262,6 @@ func hit_state(delta):
 	
 	# continua aplicando gravidade
 	velocity.y += GRAVITY_FORCE * gravity_direction * delta
-	
-	if velocity.y * gravity_direction <0:
-		velocity.y *= 0.98
 
 # =========================
 # DEAD
@@ -488,15 +487,6 @@ func take_damage(amount: int, from_position: Vector2):
 		await get_tree().create_timer(0.5).timeout
 		die()
 		return
-	
-	await  get_tree().create_timer(0.2).timeout
-	
-	state_locked = false
-	
-	if is_on_floor():
-		change_state(PlayerState.GROUND)
-	else:
-		change_state(PlayerState.AIR)
 	
 	await  get_tree().create_timer(1.0).timeout
 	is_invulnerable = false

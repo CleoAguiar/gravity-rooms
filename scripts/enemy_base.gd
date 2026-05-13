@@ -1,6 +1,15 @@
 extends CharacterBody2D
 
 # =========================
+# REFERÊNCIAS
+# =========================
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: Area2D = $Hitbox
+@onready var hurtbox: Area2D = $Hurtbox
+@onready var wall_raycast: RayCast2D = $WallRayCast
+@onready var floor_raycast: RayCast2D = $FloorRayCast
+
+# =========================
 # ESTADOS (SEUS STATES)
 # =========================
 enum EnemyState {
@@ -34,15 +43,6 @@ var gravity_direction := 1 # 1 normal | -1 invertida
 
 var can_attack := true
 var is_attacking := false
-
-# =========================
-# REFERÊNCIAS
-# =========================
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: Area2D = $Hitbox
-@onready var hurtbox: Area2D = $Hurtbox
-@onready var wall_raycast: RayCast2D = $WallRayCast
-@onready var floor_raycast: RayCast2D = $FloorRayCast
 
 # =========================
 # VARIÁVEIS
@@ -172,7 +172,11 @@ func handle_state(_delta):
 		return
 	
 	if player and can_attack:
-		var distance_x = abs(player.global_position.x - global_position.x)
+		var enemy_center = hurtbox.global_position
+		var player_center = player.hurtbox.global_position
+		
+		var distance_x = abs(player_center.x - enemy_center.x)
+		
 		if distance_x <= attack_range:
 			direction = sign(player.global_position.x - global_position.x)
 			sprite.flip_h = direction > 0

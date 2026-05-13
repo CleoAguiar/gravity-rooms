@@ -173,7 +173,6 @@ func handle_state(_delta):
 	
 	if player and can_attack:
 		var distance_x = abs(player.global_position.x - global_position.x)
-		print("dist: ", distance_x)
 		if distance_x <= attack_range:
 			direction = sign(player.global_position.x - global_position.x)
 			sprite.flip_h = direction > 0
@@ -217,21 +216,11 @@ func attack():
 	hitbox.monitoring = false
 	is_attacking = false
 	
-	print("attack4")
 	change_state(EnemyState.IDLE)
 	
-	print("attack5")
 	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
-	
-	
-	#current_state = EnemyState.ATTACK
-	#
-	#sprite.play("attack")
-	#
-	#
-	#
-	#current_state = EnemyState.IDLE
+
 
 # =========================
 # DANO

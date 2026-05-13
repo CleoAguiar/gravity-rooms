@@ -5,7 +5,7 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_upho4"]
 animations = [{
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {

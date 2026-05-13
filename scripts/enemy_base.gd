@@ -28,6 +28,13 @@ var current_state = EnemyState.IDLE
 # Gravidade invertida
 var gravity_direction := 1 # 1 normal | -1 invertida
 
+# Ataque
+@export var attack_range := 50.0
+@export var attack_cooldown := 1.0
+
+var can_attack := true
+var is_attacking := false
+
 # =========================
 # REFERÊNCIAS
 # =========================
@@ -134,7 +141,9 @@ func change_state(new_state):
 # ATUALIZAÇÃO AUTOMÁTICA
 # =========================
 func update_state():
-	if current_state == EnemyState.DEAD or current_state == EnemyState.HIT:
+	if current_state == EnemyState.DEAD \
+	or current_state == EnemyState.HIT \
+	or current_state == EnemyState.ATTACK:
 		return
 	
 	if not is_on_floor():
@@ -157,6 +166,19 @@ func handle_state(_delta):
 	if current_state == EnemyState.DEAD:
 		velocity = Vector2.ZERO
 		return
+	
+	if current_state == EnemyState.ATTACK:
+		velocity.x = 0
+		return
+	
+	if player and can_attack:
+		var distance_x = abs(player.global_position.x - global_position.x)
+		print("dist: ", distance_x)
+		if distance_x <= attack_range:
+			direction = sign(player.global_position.x - global_position.x)
+			sprite.flip_h = direction > 0
+			attack()
+			return
 	
 	# IA simples: patrulha
 	patrol()
@@ -181,17 +203,35 @@ func turn():
 # ATTACK
 # =========================
 func attack():
-	current_state = EnemyState.ATTACK
+	if is_attacking or dead:
+		return
 	
-	sprite.play("attack")
+	is_attacking = true
+	can_attack = false
 	
+	change_state(EnemyState.ATTACK)
+	
+	velocity.x = 0
 	hitbox.monitoring = true
-	
 	await sprite.animation_finished
-	
 	hitbox.monitoring = false
+	is_attacking = false
 	
-	current_state = EnemyState.IDLE
+	print("attack4")
+	change_state(EnemyState.IDLE)
+	
+	print("attack5")
+	await get_tree().create_timer(attack_cooldown).timeout
+	can_attack = true
+	
+	
+	#current_state = EnemyState.ATTACK
+	#
+	#sprite.play("attack")
+	#
+	#
+	#
+	#current_state = EnemyState.IDLE
 
 # =========================
 # DANO

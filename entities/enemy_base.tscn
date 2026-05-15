@@ -87,5 +87,9 @@ collision_mask = 2
 shape = SubResource("CapsuleShape2D_upho4")
 debug_color = Color(0.61913407, 0, 0.02442751, 0.41960785)
 
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1304789346]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1603085045]
+
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

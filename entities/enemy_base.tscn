@@ -48,6 +48,9 @@ height = 18.0
 radius = 8.0
 height = 18.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv5ke"]
+size = Vector2(13, 14)
+
 [node name="EnemyBase" type="CharacterBody2D" unique_id=232797007 groups=["enemy"]]
 z_index = 10
 collision_layer = 4
@@ -89,7 +92,10 @@ debug_color = Color(0.61913407, 0, 0.02442751, 0.41960785)
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=1304789346]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1603085045]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1053606723]
+position = Vector2(-9.5, -2)
+shape = SubResource("RectangleShape2D_vv5ke")
+disabled = true
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

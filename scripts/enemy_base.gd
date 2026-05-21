@@ -73,7 +73,7 @@ func _physics_process(delta):
 # =========================
 # HITBOX
 # =========================
-
+# TODO isso parece que não funciona
 func _on_hitbox_body_entered(body: Node2D):
 	if current_state == EnemyState.DEAD:
 		return
@@ -84,7 +84,7 @@ func _on_hitbox_body_entered(body: Node2D):
 # =========================
 # HURTBOX
 # =========================
-
+# TODO isso parece que não funciona
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if dead:
 		return

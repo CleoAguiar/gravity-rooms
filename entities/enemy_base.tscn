@@ -90,9 +90,10 @@ collision_mask = 2
 shape = SubResource("CapsuleShape2D_upho4")
 debug_color = Color(0.61913407, 0, 0.02442751, 0.41960785)
 
-[node name="AttackHitbox" type="Area2D" parent="." unique_id=1304789346]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1304789346 groups=["enemy_attack"]]
 collision_layer = 4
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1053606723]
 position = Vector2(-9.5, -2)

@@ -109,14 +109,13 @@ func _physics_process(delta):
 	was_on_floor = is_on_floor_now
 
 func _on_hurtbox_area_entered(area: Area2D):
-	print ("area: ", area)
 	if area.is_in_group("enemy_attack"):
 		var enemy = area.get_parent()
 		
 		if enemy != null and enemy.get("damage") != null:
 			take_damage(enemy.damage, enemy.global_position)
 
-func _on_attack_area_area_entered(area):
+func _on_attack_area_area_entered(area: Area2D):
 	#print("ACERTOU:", area.name)
 	var enemy = area.get_parent()
 	

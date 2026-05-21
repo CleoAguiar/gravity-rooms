@@ -285,7 +285,5 @@ position = Vector2(0, 2)
 [node name="CollisionShape2D" parent="Hurtbox" parent_id_path=PackedInt32Array(1009348622) index="0" unique_id=172683882]
 position = Vector2(0, 1)
 
-[node name="CollisionShape2D" parent="AttackHitbox" parent_id_path=PackedInt32Array(1304789346) index="0" unique_id=1603085045]
-position = Vector2(-9.5, -2)
+[node name="CollisionShape2D" parent="AttackHitbox" parent_id_path=PackedInt32Array(1304789346) index="0" unique_id=1053606723]
 shape = SubResource("RectangleShape2D_wa3rb")
-disabled = true

@@ -109,6 +109,7 @@ func _physics_process(delta):
 	was_on_floor = is_on_floor_now
 
 func _on_hurtbox_area_entered(area: Area2D):
+	print ("area: ", area)
 	if area.is_in_group("enemy_attack"):
 		var enemy = area.get_parent()
 		
